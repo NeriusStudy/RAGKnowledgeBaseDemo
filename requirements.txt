@@ -1,0 +1,30 @@
+# LangChain 核心库
+langchain==0.3.13
+langchain-core==0.3.28
+langchain-community==0.3.13
+
+# 向量数据库
+langchain-chroma==0.1.4
+chromadb==0.5.23
+
+# DashScope (阿里云大模型平台)
+dashscope==1.20.11
+
+# 关键词检索
+rank-bm25==0.2.2
+jieba==0.42.1
+
+# 数据处理
+numpy>=1.24.0
+pandas>=2.0.0
+
+# 环境变量管理
+python-dotenv==1.0.0
+
+# FastAPI (如果需要 Web 接口)
+# fastapi==0.115.6
+# uvicorn==0.34.0
+
+# 测试工具
+# pytest==8.3.4
+# pytest-cov==6.0.0
