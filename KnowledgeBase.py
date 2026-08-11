@@ -75,10 +75,10 @@ class KnowledgeBase:
         self.splitter_separaters = splitter_separaters
         self.splitter_length_function = splitter_length_function
         # 初始化文件存储
-        self.file_store = FileStore(file_store_path, document_store_path, md5_store_path, file_document_map_store_path,
-                                splitter_chunk_size, splitter_chunk_overlap, splitter_separaters, splitter_length_function)
+        self.file_store = FileStore(self.file_store_path, self.document_store_path, self.md5_store_path, self.file_document_map_store_path,
+                                self.splitter_chunk_size, self.splitter_chunk_overlap, self.splitter_separaters, self.splitter_length_function)
         # 初始化RAG服务
-        self.rag_service = RAGService(RAG_store_path, embedding_model_name, rerank_model_name)
+        self.rag_service = RAGService(self.RAG_store_path, self.embedding_model_name, self.rerank_model_name)
 
     def get_name(self) -> str:
         """
