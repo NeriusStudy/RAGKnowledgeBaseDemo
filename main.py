@@ -297,24 +297,19 @@ async def delete_knowledge_base(name: str):
 async def list_files(name: str):
     """
     【GET /api/knowledgebases/{name}/files】获取指定知识库的文件列表。
-    优先从后端实例获取，若实例为 None 则使用内存中记录的文件列表。
+    必须通过 KnowledgeBase.get_all_files() 方法获取文件列表，不绕过后端直接使用内存中的数据。
     """
     if name not in knowledge_bases:
         raise HTTPException(status_code=404, detail="知识库不存在")
 
     kb_data = knowledge_bases[name]
-    files = []
 
-    if kb_data["instance"]:
-        try:
-            file_names = kb_data["instance"].get_all_files()
-            if file_names:
-                files = [{"name": f} for f in file_names]
-        except Exception:
-            pass
+    if not kb_data["instance"]:
+        raise HTTPException(status_code=500, detail="知识库实例未初始化，无法获取文件列表")
 
-    if not files:
-        files = [{"name": f} for f in kb_data["files"]]
+    # 仅通过 KnowledgeBase.get_all_files() 获取文件列表
+    file_names = kb_data["instance"].get_all_files()
+    files = [{"name": f} for f in file_names] if file_names else []
 
     return {"files": files}
 
@@ -324,29 +319,29 @@ async def list_files(name: str):
 async def upload_file(name: str, file: UploadFile = File(...)):
     """
     【POST /api/knowledgebases/{name}/files】向指定知识库上传文件。
-    优先调用后端 add_file() 方法，若实例为 None 则仅在内存中记录文件名。
+    必须通过 KnowledgeBase.add_file() 方法添加文件，不绕过后端直接操作内存。
+    添加成功后，同步更新内存文件列表和持久化 JSON 文件。
     """
     if name not in knowledge_bases:
         raise HTTPException(status_code=404, detail="知识库不存在")
 
     kb_data = knowledge_bases[name]
-    success = False
 
-    if kb_data["instance"]:
-        try:
-            success = kb_data["instance"].add_file(file)
-        except Exception:
-            pass
+    if not kb_data["instance"]:
+        raise HTTPException(status_code=500, detail="知识库实例未初始化，无法添加文件")
 
+    # 仅通过 KnowledgeBase.add_file() 添加文件
+    success = kb_data["instance"].add_file(file)
     if not success:
-        file_name = file.filename
-        if file_name and file_name not in kb_data["files"]:
-            kb_data["files"].append(file_name)
-        success = True
+        raise HTTPException(status_code=500, detail="文件添加失败")
 
+    # 添加成功后，同步更新内存文件列表和持久化 JSON 文件
+    file_name = file.filename
+    if file_name and file_name not in kb_data["files"]:
+        kb_data["files"].append(file_name)
     save_data()
 
-    return {"success": success}
+    return {"success": True}
 
 
 # ---------- 8.7 删除文件 ----------
@@ -354,28 +349,28 @@ async def upload_file(name: str, file: UploadFile = File(...)):
 async def delete_file(name: str, filename: str):
     """
     【DELETE /api/knowledgebases/{name}/files/{filename}】删除指定文件。
-    优先调用后端 delete_file() 方法，若实例为 None 则从内存记录中移除。
+    必须通过 KnowledgeBase.delete_file() 方法删除文件，不绕过后端直接操作内存。
+    删除成功后，同步更新内存文件列表和持久化 JSON 文件。
     """
     if name not in knowledge_bases:
         raise HTTPException(status_code=404, detail="知识库不存在")
 
     kb_data = knowledge_bases[name]
-    success = False
 
-    if kb_data["instance"]:
-        try:
-            success = kb_data["instance"].delete_file(filename)
-        except Exception:
-            pass
+    if not kb_data["instance"]:
+        raise HTTPException(status_code=500, detail="知识库实例未初始化，无法删除文件")
 
+    # 仅通过 KnowledgeBase.delete_file() 删除文件
+    success = kb_data["instance"].delete_file(filename)
     if not success:
-        if filename in kb_data["files"]:
-            kb_data["files"].remove(filename)
-            success = True
+        raise HTTPException(status_code=500, detail="文件删除失败")
 
+    # 删除成功后，同步更新内存文件列表和持久化 JSON 文件
+    if filename in kb_data["files"]:
+        kb_data["files"].remove(filename)
     save_data()
 
-    return {"success": success}
+    return {"success": True}
 
 
 # ============================================================
