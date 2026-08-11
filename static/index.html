@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知识库管理系统</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 知识库列表视图 -->
+        <div id="kb-view" class="view active">
+            <header class="top-bar">
+                <h1 class="logo">知识库</h1>
+                <button class="btn btn-primary" id="btn-add-kb">
+                    <span class="icon">+</span>
+                    <span>新建知识库</span>
+                </button>
+            </header>
+            <main class="content">
+                <div id="kb-list" class="card-grid"></div>
+                <div id="kb-empty" class="empty-state hidden">
+                    <div class="empty-icon">&#128218;</div>
+                    <p class="empty-text">暂无知识库</p>
+                    <p class="empty-hint">点击右上角"新建知识库"开始</p>
+                </div>
+            </main>
+        </div>
+
+        <!-- 文件管理视图 -->
+        <div id="file-view" class="view">
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button class="btn btn-back" id="btn-back">
+                        <span class="icon">&larr;</span>
+                        <span>返回</span>
+                    </button>
+                    <h1 class="logo" id="current-kb-name"></h1>
+                </div>
+                <button class="btn btn-primary" id="btn-add-file">
+                    <span class="icon">&#8679;</span>
+                    <span>添加文件</span>
+                </button>
+            </header>
+            <main class="content">
+                <div id="file-list" class="file-list"></div>
+                <div id="file-empty" class="empty-state hidden">
+                    <div class="empty-icon">&#128196;</div>
+                    <p class="empty-text">暂无文件</p>
+                    <p class="empty-hint">点击右上角"添加文件"上传</p>
+                </div>
+            </main>
+        </div>
+
+        <!-- 知识库列表视图 -->
+        <div id="kb-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2>新建知识库</h2>
+                <div class="form-group">
+                    <label for="kb-name-input">知识库名称</label>
+                    <input type="text" id="kb-name-input" placeholder="请输入知识库名称" maxlength="50">
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" id="kb-modal-cancel">取消</button>
+                    <button class="btn btn-primary" id="kb-modal-confirm">确认</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 确认弹窗 -->
+        <div id="confirm-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="confirm-icon">&#9888;&#65039;</div>
+                <h2 id="confirm-title">确认删除</h2>
+                <p id="confirm-message"></p>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" id="confirm-cancel">取消</button>
+                    <button class="btn btn-danger" id="confirm-confirm">确认删除</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 确认弹窗 -->
+        <div id="toast" class="toast hidden"></div>
+
+        <!-- 隐藏的文件选择input -->
+        <input type="file" id="file-input" class="hidden" multiple>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
