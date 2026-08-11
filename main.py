@@ -2,7 +2,7 @@
 知识库管理系统 —— 后端主入口
 ===========================================
 
-负责人：李嘉洲
+负责人：lijiazhou
 
 本模块是整个系统的后端核心，基于 FastAPI 框架实现。
 主要职责：
@@ -35,6 +35,7 @@ from KnowledgeBase import KnowledgeBase
 from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from typing import List
 from pydantic import BaseModel
 
 import os
@@ -180,6 +181,16 @@ load_data()
 # ============================================================
 # 第六部分：请求体数据模型
 # ============================================================
+
+
+
+class SearchRequest(BaseModel):
+    """RAG 检索请求体"""
+    query: str
+    mod: str = "hybrid"
+    k: int = 10
+    vector_weight: float = 0.5
+    keyword_weight: float = 0.5
 
 class KBCreateRequest(BaseModel):
     """
@@ -373,6 +384,42 @@ async def delete_file(name: str, filename: str):
     return {"success": True}
 
 
+
+# ---------- 8.8 RAG 检索 ----------
+@app.post("/api/knowledgebases/{name}/search")
+async def search_knowledge_base(name: str, request: SearchRequest):
+    """
+    【POST /api/knowledgebases/{name}/search】对指定知识库执行 RAG 检索。
+    必须通过 KnowledgeBase.search() 方法检索，不绕过后端。
+    返回检索到的文档列表，每个文档包含 page_content 和 metadata。
+    """
+    if name not in knowledge_bases:
+        raise HTTPException(status_code=404, detail="知识库不存在")
+
+    kb_data = knowledge_bases[name]
+
+    if not kb_data["instance"]:
+        raise HTTPException(status_code=500, detail="知识库实例未初始化，无法检索")
+
+    # 仅通过 KnowledgeBase.search() 检索
+    documents = kb_data["instance"].search(
+        query=request.query,
+        mod=request.mod,
+        k=request.k,
+        vector_weight=request.vector_weight,
+        keyword_weight=request.keyword_weight,
+    )
+
+    # 将 Document 对象序列化为 JSON 可序列化的字典列表
+    results = []
+    if documents:
+        for doc in documents:
+            results.append({
+                "page_content": doc.page_content,
+                "metadata": doc.metadata if hasattr(doc, "metadata") else {},
+            })
+
+    return {"results": results, "count": len(results)}
 # ============================================================
 # 第九部分：服务启动入口
 # ============================================================

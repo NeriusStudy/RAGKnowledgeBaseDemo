@@ -192,6 +192,7 @@ function enterKnowledgeBase(name) {
     $("current-kb-name").textContent = name;
     showView("file-view");
     loadFiles(name);
+    resetSearchPanel();
 }
 
 $("btn-back").addEventListener("click", () => {
@@ -303,6 +304,126 @@ function confirmDeleteFile(fileName) {
             }
         },
     });
+}
+
+
+// ============ RAG 检索 ============
+
+function resetSearchPanel() {
+    $("search-query").value = "";
+    $("search-results").innerHTML = '<div class="search-results-empty">输入问题并点击检索，结果将显示在这里</div>';
+    $("search-k").value = "5";
+    // 重置权重滑块到默认
+    const slider = $("weight-slider");
+    if (slider) slider.value = 2;
+    updateWeightDisplay(2);
+    // 重置模式按钮
+    document.querySelectorAll(".mode-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.mode === "hybrid");
+    });
+}
+
+function updateWeightDisplay(sliderValue) {
+    const weights = [
+        { v: 0.0, k: 1.0, label: "0:1" },
+        { v: 0.25, k: 0.75, label: "1:3" },
+        { v: 0.5, k: 0.5, label: "1:1" },
+        { v: 0.75, k: 0.25, label: "3:1" },
+        { v: 1.0, k: 0.0, label: "1:0" },
+    ];
+    const w = weights[sliderValue];
+    if (w) {
+        $("weight-display").textContent = w.label;
+    }
+}
+
+// 权重滑块事件
+const weightSlider = $("weight-slider");
+if (weightSlider) {
+    weightSlider.addEventListener("input", () => {
+        updateWeightDisplay(parseInt(weightSlider.value));
+    });
+}
+
+// 模式按钮事件
+document.querySelectorAll(".mode-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+        document.querySelectorAll(".mode-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+    });
+});
+
+// 检索按钮
+const btnSearch = $("btn-search");
+if (btnSearch) {
+    btnSearch.addEventListener("click", async () => {
+    const query = $("search-query").value.trim();
+    if (!query) {
+        showToast("请输入检索问题", "error");
+        return;
+    }
+
+    const kbName = state.currentKB;
+    if (!kbName) return;
+
+    const activeMode = document.querySelector(".mode-btn.active");
+    const mod = activeMode ? activeMode.dataset.mode : "hybrid";
+    const k = parseInt($("search-k").value) || 5;
+
+    const sliderValue = parseInt(weightSlider.value);
+    const weights = [
+        { v: 0.0, k: 1.0 },
+        { v: 0.25, k: 0.75 },
+        { v: 0.5, k: 0.5 },
+        { v: 0.75, k: 0.25 },
+        { v: 1.0, k: 0.0 },
+    ];
+    const w = weights[sliderValue];
+
+    $("search-results").innerHTML = '<div class="search-results-empty">检索中...</div>';
+
+    try {
+        const data = await api(
+            "POST",
+            `/api/knowledgebases/${encodeURIComponent(kbName)}/search`,
+            {
+                query: query,
+                mod: mod,
+                k: k,
+                vector_weight: w.v,
+                keyword_weight: w.k,
+            }
+        );
+        renderSearchResults(data.results || []);
+    } catch (err) {
+        $("search-results").innerHTML = `<div class="search-results-empty" style="color:#ef4444;">检索失败: ${escapeHtml(err.message || "未知错误")}</div>`;
+    }
+    });
+}
+
+function renderSearchResults(results) {
+    const container = $("search-results");
+
+    if (results.length === 0) {
+        container.innerHTML = '<div class="search-results-empty">未检索到相关文档</div>';
+        return;
+    }
+
+    container.innerHTML = results
+        .map(
+            (doc, i) => `
+        <div class="search-result-item">
+            <div class="search-result-index">#${i + 1}</div>
+            <div class="search-result-content">${escapeHtml(doc.page_content || "")}</div>
+            <div class="search-result-meta">
+                ${Object.entries(doc.metadata || {})
+                    .map(([k, v]) => `<span>${escapeHtml(k)}: ${escapeHtml(String(v))}</span>`)
+                    .join("")}
+            </div>
+        </div>
+    `
+        )
+        .join("");
 }
 
 // ============ 初始化 ============
