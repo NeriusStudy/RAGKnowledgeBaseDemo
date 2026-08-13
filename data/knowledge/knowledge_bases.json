@@ -1,0 +1,14 @@
+{
+  "kb_order": [
+    "test1",
+    "test2"
+  ],
+  "knowledge_bases": {
+    "test1": {
+      "files": []
+    },
+    "test2": {
+      "files": []
+    }
+  }
+}
