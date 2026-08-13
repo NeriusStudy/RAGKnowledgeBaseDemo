@@ -170,7 +170,7 @@ class KnowledgeBase:
         Args:
             file_name: 文件名称
         Returns:
-            !!!!!!!!!!!!!!!! todo:文件内容用什么类型封装
+            !!!!!!!!!!!!!!!! todo:文件类型处理在FileStore类中实现
         """
         return self.file_store.get_file(file_name)
 

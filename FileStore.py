@@ -69,6 +69,7 @@ class FileStore:
     def _file_to_document(self, file) -> Document:
         """
         解析文件成为Document
+        todo:目前需要处理.docx .doc .txt .pdf类型的文件，之后其他类型的也在这里转Document
         """
         pass
 
@@ -114,6 +115,7 @@ class FileStore:
         Returns:
             List[Document]: 切分后的文档列表，其中每个文档的md5保存在Document的metadata中
         """
+        pass
 
     def delete_file(self, file_name: str) -> List[str]:
         """
@@ -160,3 +162,4 @@ class FileStore:
         """
         删除所有持久化存储
         """
+        pass
