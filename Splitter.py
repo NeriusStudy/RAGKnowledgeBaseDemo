@@ -81,7 +81,7 @@ class Splitter:
         Returns:
             切分后的文本块列表（List[str]）
         """
-        pass
+        return self._splitter.split_text(text)
 
     def split_document(self, document: Document) -> List[Document]:
         """
@@ -92,14 +92,14 @@ class Splitter:
         Returns:
             切分后的 Document 块列表，每个块保留原始 Document 的 metadata，并添加md5
         """
-        pass
+        # 切分文本
+        chunks = self._splitter.split_text(document.page_content)
 
-    def split_documents(self, documents: List[Document]) -> List[Document]:
-        """
-        将多个 LangChain Document 对象切分为多个 Document 块
-        Args:
-            documents: 待切分的 LangChain Document 对象列表
-        Returns:
-            切分后的 Document 块列表，每个块保留对应原始 Document 的 metadata
-        """
-        pass
+        result = []
+        for chunk in chunks:
+            # 保留原始 metadata，并添加 md5 索引
+            new_metadata = dict(document.metadata) if document.metadata else {}
+            new_metadata["md5"] = Deduplicator.str_to_md5(chunk)
+            result.append(Document(page_content=chunk, metadata=new_metadata))
+
+        return result
