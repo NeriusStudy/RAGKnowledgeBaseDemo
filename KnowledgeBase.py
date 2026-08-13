@@ -144,7 +144,12 @@ class KnowledgeBase:
         Returns:
             bool: 是否添加成功
         """
-        pass
+        # 保存文件到文件存储，获取切分后的文档列表
+        documents = self.file_store.save_file(file)
+        if not documents:
+            return False
+        # 将文档添加到 RAG 服务（向量库和关键词库）
+        return self.rag_service.add_documents(documents)
 
     def add_files(self, files) -> bool:
         """
@@ -154,7 +159,10 @@ class KnowledgeBase:
         Returns:
             bool: 是否添加成功
         """
-        pass
+        for file in files:
+            if not self.add_file(file):
+                return False
+        return True
 
     def get_file(self, file_name: str):
         """
@@ -164,7 +172,7 @@ class KnowledgeBase:
         Returns:
             !!!!!!!!!!!!!!!! todo:文件内容用什么类型封装
         """
-        pass
+        return self.file_store.get_file(file_name)
 
     def get_all_files(self) -> List[str]:
         """
@@ -172,7 +180,7 @@ class KnowledgeBase:
         Returns:
             List[str]: 所有文件名称列表
         """
-        pass
+        return self.file_store.get_all_file_name()
 
     def delete_file(self, file_name: str) -> bool:
         """
@@ -182,7 +190,14 @@ class KnowledgeBase:
         Returns:
             bool: 是否删除成功
         """
-        pass
+        # 从文件存储中删除文件，获取被删除文档的 md5 列表
+        md5_list = self.file_store.delete_file(file_name)
+        if md5_list is None:
+            return False
+        # 从 RAG 服务中删除对应的文档
+        if md5_list:
+            self.rag_service.delete_documents(md5_list)
+        return True
 
     def search(self, query: str, mod: str = "hybrid", k: int = config.RAG_SEARCH_DEFAULT_K,
                vector_weight: float = 0.5,
@@ -198,10 +213,15 @@ class KnowledgeBase:
         Returns:
             list[Document]: 检索得到的文档
         """
-        pass
+        return self.rag_service.search(
+            query=query, mod=mod, k=k,
+            vector_weight=vector_weight,
+            keyword_weight=keyword_weight,
+        )
 
     def delete_me(self):
         """
         删除所有持久化存储
         """
-        pass
+        self.file_store.delete_me()
+        self.rag_service.delete_me()
