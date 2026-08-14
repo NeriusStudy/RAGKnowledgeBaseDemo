@@ -3,21 +3,19 @@
 # 依赖：后续安装的依赖请写在这里，统一用pip安装
 # LangChain核心生态:
 # pip install langchain langchain-core langchain-community
-# Web框架依赖
-# pip install fastapi uvicorn python-multipart
 
 # 环境变量
 # DASHSCOPE_API_KEY
 
 # VectorDB
-EMBEDDING_MODEL_NAME = "text-embedding-2"
+EMBEDDING_MODEL_NAME = "text-embedding-v2"
 VECTOR_SEARCH_DEFAULT_K = 10
 
 # KeywordDB
 KEYWORD_SEARCH_DEFAULT_K = 10
 
 # Reranker
-RERANK_MODEL_NAME = "gte-reranker"
+RERANK_MODEL_NAME = "qwen3-rerank"
 RRF_REFUSION_K = 20
 RERANK_K = 10
 
@@ -41,7 +39,3 @@ DOCUMENT_STORE_PATH = "file_store/documents/"
 MD5_STORE_PATH = "file_store/md5.txt"
 FILE_DOCUMENT_MAP_STORE_PATH = "file_store/file_document_map.txt"
 RAG_STORE_PATH = "RAG_store"
-
-# main
-KNOWLEDGE_BASE_STORE_PATH = "data/knowledge"
-KNOWLEDGE_BASE_STORE_FILE = "knowledge_bases.json"

@@ -1,14 +1,48 @@
 {
-  "kb_order": [
-    "test1",
-    "test2"
-  ],
+  "total_knowledge_bases": 6,
+  "created_at": "2026-08-15",
   "knowledge_bases": {
-    "test1": {
-      "files": []
+    "aventro_motors": {
+      "name": "Aventro Motors",
+      "industry": "汽车",
+      "kb_path": "data/knowledge/aventro_motors/",
+      "file_count": 49,
+      "document_count": 461
     },
-    "test2": {
-      "files": []
+    "cendara_university": {
+      "name": "Cendara University",
+      "industry": "学术教育",
+      "kb_path": "data/knowledge/cendara_university/",
+      "file_count": 40,
+      "document_count": 857
+    },
+    "cloudway_24": {
+      "name": "CloudWay-24",
+      "industry": "云服务/航空",
+      "kb_path": "data/knowledge/cloudway_24/",
+      "file_count": 35,
+      "document_count": 272
+    },
+    "techedu_academy": {
+      "name": "TechEdu Academy",
+      "industry": "在线教育",
+      "kb_path": "data/knowledge/techedu_academy/",
+      "file_count": 10,
+      "document_count": 174
+    },
+    "velvera_technologies": {
+      "name": "Velvera Technologies",
+      "industry": "企业技术",
+      "kb_path": "data/knowledge/velvera_technologies/",
+      "file_count": 37,
+      "document_count": 557
+    },
+    "zx_bank": {
+      "name": "ZX Bank",
+      "industry": "银行金融",
+      "kb_path": "data/knowledge/zx_bank/",
+      "file_count": 71,
+      "document_count": 795
     }
   }
 }

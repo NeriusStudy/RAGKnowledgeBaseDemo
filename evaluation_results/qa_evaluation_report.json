@@ -1,0 +1,1747 @@
+{
+  "summary": {
+    "total_questions": 20,
+    "successful_evaluations": 20,
+    "failed_evaluations": 0,
+    "average_precision": 0.2858333333333334,
+    "average_recall": 0.75,
+    "average_f1_score": 0.3833333333333333
+  },
+  "results": [
+    {
+      "query": "When were the ATMs installed in major parks of Surat?",
+      "enterprise": "ZX Bank",
+      "query_type": "Temporal",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "ZX Bank ATM Network at Major Parks – India.md"
+      ],
+      "retrieved_files": [
+        "ZX Bank ATM Network at Major Parks – India.md",
+        "ZX Bank ATMs at Major Bus Stands (India).md"
+      ],
+      "matched_files": [
+        "ZX Bank ATM Network at Major Parks – India.md"
+      ],
+      "retrieved_contents": [
+        {
+          "content": "6. **Sundarvan Nature Discovery Centre ATM**\n   - Address: Main Entrance, Satellite, Ahmedabad, 380015\n\n---\n\n## Surat – Gujarat\n\n1. **Gopi Talav Park ATM**\n   - Address: Entry Plaza, Rustampura, Surat...",
+          "source": "ZX Bank ATM Network at Major Parks – India.md",
+          "metadata": {
+            "file_path": "data/knowledge/zx_bank/file_store/files/ZX Bank ATM Network at Major Parks – India.md",
+            "md5": "adb8ebdf23cc29feaec73814637edecd",
+            "file_type": ".md",
+            "source": "ZX Bank ATM Network at Major Parks – India.md",
+            "rerank_score": 0.8548890028078313
+          }
+        },
+        {
+          "content": "---\n\n## Surat – Gujarat\n\n1. **Surat Central ST Bus Stand ATM**\n   - Address: Sardar Vallabhbhai Patel Market, Surat, 395003\n\n2. **Adajan Bus Stand ATM**\n   - Address: Adajan Patia Road, Adajan, Surat,...",
+          "source": "ZX Bank ATMs at Major Bus Stands (India).md",
+          "metadata": {
+            "md5": "d18bf67746afb7487a1d3d67293434ac",
+            "source": "ZX Bank ATMs at Major Bus Stands (India).md",
+            "file_type": ".md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/ZX Bank ATMs at Major Bus Stands (India).md",
+            "rerank_score": 0.7672357237910954
+          }
+        },
+        {
+          "content": "5. **Science Centre Park ATM**\n   - Address: City Light Road, Surat, 395007\n\n6. **Pal Lake Garden ATM**\n   - Address: Garden Gate, Pal, Surat, 395009\n\n---\n\n## Jaipur – Rajasthan\n\n1. **Central Park ATM...",
+          "source": "ZX Bank ATM Network at Major Parks – India.md",
+          "metadata": {
+            "source": "ZX Bank ATM Network at Major Parks – India.md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/ZX Bank ATM Network at Major Parks – India.md",
+            "md5": "1d96a8bd58727a3379b7d2b380888a57",
+            "file_type": ".md",
+            "rerank_score": 0.7407494991935185
+          }
+        },
+        {
+          "content": "# ZX Bank ATM Network at Major Parks – India\n\n---\n\n## Mumbai – Maharashtra\n\n1. **Shivaji Park ATM**\n   - Address: Near Entry Gate, Shivaji Park, Dadar West, Mumbai, 400028\n\n2. **Jijamata Udyan (Bycull...",
+          "source": "ZX Bank ATM Network at Major Parks – India.md",
+          "metadata": {
+            "source": "ZX Bank ATM Network at Major Parks – India.md",
+            "md5": "899405d5cd13cd59dc1b24cccdce4f0e",
+            "file_path": "data/knowledge/zx_bank/file_store/files/ZX Bank ATM Network at Major Parks – India.md",
+            "file_type": ".md",
+            "rerank_score": 0.7336297591945042
+          }
+        },
+        {
+          "content": "---\n\n## Ahmedabad – Gujarat\n\n1. **Law Garden ATM**\n   - Address: Main Entrance, Ellisbridge, Ahmedabad, 380006\n\n2. **Parimal Garden ATM**\n   - Address: Entry Gate, Parimal Society, Ahmedabad, 380006\n\n...",
+          "source": "ZX Bank ATM Network at Major Parks – India.md",
+          "metadata": {
+            "file_type": ".md",
+            "md5": "1efce665d212d75ab44961248159dff6",
+            "source": "ZX Bank ATM Network at Major Parks – India.md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/ZX Bank ATM Network at Major Parks – India.md",
+            "rerank_score": 0.5553851700146523
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "ZX Bank ATM Network at Major Parks – India.md",
+          "text": "1. Gopi Talav Park ATM - Entry Plaza, Rustampura, Surat, 395002\n2. Sarthana Nature Park ATM - Main Gate, Sarthana Jakatnaka, Surat, 395006\n3. VR Mall Garden ATM - VR Mall Entry, Dumas Road, Magdalla, Surat, 395007\n4. Indira Gandhi Garden ATM - Main Entrance, Athwalines, Surat, 395001\n5. Science Centre Park ATM - City Light Road, Surat, 395007\n6. Pal Lake Garden ATM - Garden Gate, Pal, Surat, 395009\n(Note: Installation dates not provided in the document.)"
+        }
+      ],
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1_score": 0.6666666666666666,
+      "success": true
+    },
+    {
+      "query": "What is the PRM Assistant Program at ZX Bank?",
+      "enterprise": "ZX Bank",
+      "query_type": "Descriptive",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "Personal Relationship Manager Assistant Program.md"
+      ],
+      "retrieved_files": [
+        "Personal Relationship Manager Assistant Program.md"
+      ],
+      "matched_files": [
+        "Personal Relationship Manager Assistant Program.md"
+      ],
+      "retrieved_contents": [
+        {
+          "content": "# ZX Bank – Personal Relationship Manager Assistant Program\n\nWelcome to the **Personal Relationship Manager (PRM) Assistant Program**, an exclusive service designed for all ZX Bank account holders. Ou...",
+          "source": "Personal Relationship Manager Assistant Program.md",
+          "metadata": {
+            "md5": "b7d0200bad57950954eb48dc92e2ca1d",
+            "file_path": "data/knowledge/zx_bank/file_store/files/Personal Relationship Manager Assistant Program.md",
+            "file_type": ".md",
+            "source": "Personal Relationship Manager Assistant Program.md",
+            "rerank_score": 0.9067666126953393
+          }
+        },
+        {
+          "content": "---\n\n## Who Can Use the PRM Assistant?\n\n**All ZX Bank account holders**, regardless of account type, automatically get access to a Personal Relationship Manager Assistant at no extra charge.\n\n---\n\n## ...",
+          "source": "Personal Relationship Manager Assistant Program.md",
+          "metadata": {
+            "file_path": "data/knowledge/zx_bank/file_store/files/Personal Relationship Manager Assistant Program.md",
+            "source": "Personal Relationship Manager Assistant Program.md",
+            "md5": "ce5227428a0d77857542a6fd8f5d8620",
+            "file_type": ".md",
+            "rerank_score": 0.8773875710747502
+          }
+        },
+        {
+          "content": "---\n\n## Why Choose the PRM Assistant Program?\n\n- **Personalized attention:** A truly customer-centric service experience.\n- **Time-saving:** Let your PRM handle the details while you focus on what mat...",
+          "source": "Personal Relationship Manager Assistant Program.md",
+          "metadata": {
+            "file_type": ".md",
+            "source": "Personal Relationship Manager Assistant Program.md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/Personal Relationship Manager Assistant Program.md",
+            "md5": "d67da1914ca2a80f152433be561bb9e3",
+            "rerank_score": 0.8518541438833348
+          }
+        },
+        {
+          "content": "---\n\n## What is the PRM Assistant Program?\n\nThe Personal Relationship Manager Assistant Program connects you with a **dedicated relationship manager**—a friendly banking expert who understands your un...",
+          "source": "Personal Relationship Manager Assistant Program.md",
+          "metadata": {
+            "file_path": "data/knowledge/zx_bank/file_store/files/Personal Relationship Manager Assistant Program.md",
+            "md5": "34a5d21874216c382df2f88c4a8f498b",
+            "file_type": ".md",
+            "source": "Personal Relationship Manager Assistant Program.md",
+            "rerank_score": 0.8282866754187342
+          }
+        },
+        {
+          "content": "| Service                        | How PRM Assistant Supports You                         |\n|---------------------------------|--------------------------------------------------------|\n| Account Inqui...",
+          "source": "Personal Relationship Manager Assistant Program.md",
+          "metadata": {
+            "file_type": ".md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/Personal Relationship Manager Assistant Program.md",
+            "md5": "bef796b2b721f00b27ce38e37e97ed5b",
+            "source": "Personal Relationship Manager Assistant Program.md",
+            "rerank_score": 0.6655337872472615
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "Personal Relationship Manager Assistant Program.md",
+          "text": "The Personal Relationship Manager Assistant Program connects you with a dedicated relationship manager—a friendly banking expert who understands your unique needs. Whether you manage your finances digitally or prefer in-person services, your PRM Assistant will guide and support you, making banking easier and more personalized than ever before."
+        }
+      ],
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "success": true
+    },
+    {
+      "query": "How can I contact Aventro Motors for service appointments?",
+      "enterprise": "Aventro Motors",
+      "query_type": "Procedural",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "Parts-5.md"
+      ],
+      "retrieved_files": [
+        "Traction Control.md",
+        "Aventro Swift Sedan.md",
+        "Aventro  Connectivity.md",
+        "How to Open the Door When the Car Key Remote Battery is Dead.md",
+        "Best Ways to Use Your Car AC.md"
+      ],
+      "matched_files": [],
+      "retrieved_contents": [
+        {
+          "content": "---\n\n## Contact & Test Drive\n\nFor bookings or a test drive, contact your nearest Aventro dealership or service center.\n\n**Aventro Motors Pvt. Ltd.**  \nAventro Tower, Sector 18, Gurgaon, Haryana - 1220...",
+          "source": "Aventro Swift Sedan.md",
+          "metadata": {
+            "source": "Aventro Swift Sedan.md",
+            "file_path": "data/knowledge/aventro_motors/file_store/files/Aventro Swift Sedan.md",
+            "file_type": ".md",
+            "md5": "0d05484b0e4b278c657799adab5e9a24",
+            "rerank_score": 0.9681388899737514
+          }
+        },
+        {
+          "content": "- For help, visit your nearest [Aventro Service Center](#service-center-locations) or call Aventro Motors at **+91 124 1234567**.",
+          "source": "How to Open the Door When the Car Key Remote Battery is Dead.md",
+          "metadata": {
+            "source": "How to Open the Door When the Car Key Remote Battery is Dead.md",
+            "file_path": "data/knowledge/aventro_motors/file_store/files/How to Open the Door When the Car Key Remote Battery is Dead.md",
+            "file_type": ".md",
+            "md5": "7b956d4e3da77817ec991a89ea637af9",
+            "rerank_score": 0.9577454924362452
+          }
+        },
+        {
+          "content": "For more information or to book an AC service, contact **Aventro Motors** at [info@aventromotors.com](mailto:info@aventromotors.com) or visit your nearest Aventro Service Center.\n\n---",
+          "source": "Best Ways to Use Your Car AC.md",
+          "metadata": {
+            "file_path": "data/knowledge/aventro_motors/file_store/files/Best Ways to Use Your Car AC.md",
+            "file_type": ".md",
+            "source": "Best Ways to Use Your Car AC.md",
+            "md5": "bb0e9227f6108b89c0037dcbdea0d566",
+            "rerank_score": 0.9306719533417087
+          }
+        },
+        {
+          "content": "---\n\n## Support\n\nIf you have any issues or questions:\n- Call Aventro Helpdesk: +91 124 1234567\n- Email: info@aventromotors.com\n- Visit your nearest [Aventro Service Center](#service-center-locations-d...",
+          "source": "Aventro  Connectivity.md",
+          "metadata": {
+            "source": "Aventro  Connectivity.md",
+            "file_path": "data/knowledge/aventro_motors/file_store/files/Aventro  Connectivity.md",
+            "file_type": ".md",
+            "md5": "c57685e0c4b32b52536de29c6f74f282",
+            "rerank_score": 0.9304293622494424
+          }
+        },
+        {
+          "content": "---\n\nFor further information, service, or support, contact [Aventro Motors Service Centers](#) or email [info@aventromotors.com](mailto:info@aventromotors.com).\n\n---",
+          "source": "Traction Control.md",
+          "metadata": {
+            "file_path": "data/knowledge/aventro_motors/file_store/files/Traction Control.md",
+            "md5": "c4b92624cd0bb63c130db3b9a01caada",
+            "file_type": ".md",
+            "source": "Traction Control.md",
+            "rerank_score": 0.8836505142217859
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "Parts-5.md",
+          "text": "Aventro Tower, Sector 18, Gurgaon, Haryana - 122018, India \nContact: +91 124 1234567 \nEmail: info@aventromotors.com"
+        },
+        {
+          "filename": "Parts-5.md",
+          "text": "For exact prices and appointments, contact your nearest Aventro Service Center."
+        }
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0,
+      "success": true
+    },
+    {
+      "query": "What are the work-study opportunities at Cendara University?",
+      "enterprise": "Cendara University",
+      "query_type": "Descriptive",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "financial_aid.md"
+      ],
+      "retrieved_files": [
+        "dept_of_Management_Catalog.md",
+        "entrance_exxam_guidelines.md",
+        "placement_report.md",
+        "financial_aid.md",
+        "alumni_directory.md"
+      ],
+      "matched_files": [
+        "financial_aid.md"
+      ],
+      "retrieved_contents": [
+        {
+          "content": "---\n\n## Career Services at Cendara\n\nCendara University’s Center for Career Development (CCD) provides the following services:\n\n- **On-Campus Recruitment Drives**\n- **Industry Internship Programs**\n- *...",
+          "source": "placement_report.md",
+          "metadata": {
+            "file_path": "data/knowledge/cendara_university/file_store/files/placement_report.md",
+            "source": "placement_report.md",
+            "md5": "c209634bc4524833df5d647272640780",
+            "file_type": ".md",
+            "rerank_score": 0.875955783069951
+          }
+        },
+        {
+          "content": "---\n\n# Notes\n\n- **Course Rotation:** Some courses are offered every semester, while others are available annually or biennially. Current schedule available on the Cendara University portal.\n- **Enroll...",
+          "source": "dept_of_Management_Catalog.md",
+          "metadata": {
+            "source": "dept_of_Management_Catalog.md",
+            "file_path": "data/knowledge/cendara_university/file_store/files/dept_of_Management_Catalog.md",
+            "file_type": ".md",
+            "md5": "b93c8f8f5fe70303df6910a45b13b89f",
+            "rerank_score": 0.8131339387589771
+          }
+        },
+        {
+          "content": "Students are encouraged to:\n\n- **Register for Alumni Mentors:** Sign up at [mentoring.cendara.edu](https://mentoring.cendara.edu)  \n- **Attend Networking Nights:** Scheduled monthly in the Student Uni...",
+          "source": "alumni_directory.md",
+          "metadata": {
+            "source": "alumni_directory.md",
+            "file_path": "data/knowledge/cendara_university/file_store/files/alumni_directory.md",
+            "file_type": ".md",
+            "md5": "9a5303fe234f4f1a2636080a394090ef",
+            "rerank_score": 0.7359276054683206
+          }
+        },
+        {
+          "content": "# Cendara University Financial Aid Guide  \n*Academic Year 2024–2025*\n\nThe Office of Financial Assistance is dedicated to making a Cendara University education accessible and affordable. Cendara offers...",
+          "source": "financial_aid.md",
+          "metadata": {
+            "source": "financial_aid.md",
+            "file_path": "data/knowledge/cendara_university/file_store/files/financial_aid.md",
+            "file_type": ".md",
+            "md5": "d1936671cf625d22fad00bed310120a8",
+            "rerank_score": 0.7114655914084934
+          }
+        },
+        {
+          "content": "---\n\n## Overview\n\nCendara University administers entrance examinations for select undergraduate and graduate academic programs to ensure a high standard of academic readiness and to appropriately plac...",
+          "source": "entrance_exxam_guidelines.md",
+          "metadata": {
+            "file_type": ".md",
+            "md5": "14b9cae17f1b696fe4d25530e8b876dd",
+            "file_path": "data/knowledge/cendara_university/file_store/files/entrance_exxam_guidelines.md",
+            "source": "entrance_exxam_guidelines.md",
+            "rerank_score": 0.7076155583886805
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "financial_aid.md",
+          "text": "Cendara’s Federal and Institutional Work-Study programs provide part-time, on-campus jobs to assist students in meeting expenses. Typical positions include library assistant, lab tech, campus events, dining hall, and research aide."
+        },
+        {
+          "filename": "financial_aid.md",
+          "text": "The hourly pay ranges from $12 to $18, depending on the undergraduate or graduate status, with a maximum of 15 hours per week during terms."
+        }
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "f1_score": 0.33333333333333337,
+      "success": true
+    },
+    {
+      "query": "What are the core values and mission of Cendara University?",
+      "enterprise": "Cendara University",
+      "query_type": "Descriptive",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "employee_handbook.md"
+      ],
+      "retrieved_files": [
+        "university_overview.md",
+        "employee_handbook.md",
+        "research_overview.md",
+        "diversity_and_inclusion.md"
+      ],
+      "matched_files": [
+        "employee_handbook.md"
+      ],
+      "retrieved_contents": [
+        {
+          "content": "---\n\nCendara University’s research enterprise is propelled by a culture of curiosity, diversity, and community-focused innovation. As it continues to expand its research footprint, the university rema...",
+          "source": "research_overview.md",
+          "metadata": {
+            "md5": "67f1f4ecbf75a7e72d5600f81b107a18",
+            "file_path": "data/knowledge/cendara_university/file_store/files/research_overview.md",
+            "file_type": ".md",
+            "source": "research_overview.md",
+            "rerank_score": 0.8677720376231265
+          }
+        },
+        {
+          "content": "## Company Culture\n\n### 5.1 Mission and Values\n\nCendara University fosters inquiry, lifelong learning, and civic engagement. We empower our community members to pursue excellence, innovation, and glob...",
+          "source": "employee_handbook.md",
+          "metadata": {
+            "file_type": ".md",
+            "file_path": "data/knowledge/cendara_university/file_store/files/employee_handbook.md",
+            "md5": "395c49b02e0b818537a10d47622c0fa6",
+            "source": "employee_handbook.md",
+            "rerank_score": 0.8432675161820082
+          }
+        },
+        {
+          "content": "# Cendara University Institutional Overview\n\n## Core Values\n\nCendara University is guided by a set of foundational values that inform every decision, policy, and initiative across our academic and adm...",
+          "source": "university_overview.md",
+          "metadata": {
+            "source": "university_overview.md",
+            "md5": "4c96b0b05149ee88072fe95b59a3219d",
+            "file_type": ".md",
+            "file_path": "data/knowledge/cendara_university/file_store/files/university_overview.md",
+            "rerank_score": 0.8414015975862217
+          }
+        },
+        {
+          "content": "- **Lifelong Learning and Adaptability**  \n  Equipping graduates to navigate rapid societal changes with confidence, resilience, and a passion for continuous self-improvement.\n\n---\n\n## Institutional P...",
+          "source": "university_overview.md",
+          "metadata": {
+            "source": "university_overview.md",
+            "file_type": ".md",
+            "md5": "c32ffe10cd3738b8d1c8c864d430fb35",
+            "file_path": "data/knowledge/cendara_university/file_store/files/university_overview.md",
+            "rerank_score": 0.7601574828619628
+          }
+        },
+        {
+          "content": "# Cendara University Diversity and Inclusion Statement\n\n## Commitment to Equity\n\nCendara University is steadfast in its dedication to nurturing an academic community where equity, access, and belongin...",
+          "source": "diversity_and_inclusion.md",
+          "metadata": {
+            "source": "diversity_and_inclusion.md",
+            "file_type": ".md",
+            "md5": "fa0e97a3baf90c7188983ee604512883",
+            "file_path": "data/knowledge/cendara_university/file_store/files/diversity_and_inclusion.md",
+            "rerank_score": 0.730069311156343
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "employee_handbook.md",
+          "text": "Cendara University fosters inquiry, lifelong learning, and civic engagement. We empower our community members to pursue excellence, innovation, and global citizenship."
+        },
+        {
+          "filename": "employee_handbook.md",
+          "text": "**Core Values:**\n- Academic integrity and freedom\n- Respect and inclusivity\n- Service and responsibility\n- Creativity and discovery"
+        }
+      ],
+      "precision": 0.25,
+      "recall": 1.0,
+      "f1_score": 0.4,
+      "success": true
+    },
+    {
+      "query": "How can I find the contact number for the Paro Town branch of ZX Bank?",
+      "enterprise": "ZX Bank",
+      "query_type": "Procedural",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "Branch Network in Bhutan.md"
+      ],
+      "retrieved_files": [
+        "Pune Branch Network.md",
+        "Savings Account to a Salary Account.md",
+        "ZX Bank Credit Card Help.md",
+        "ATM Locations in Sri Lanka.md",
+        "Nepal ATM Locations.md"
+      ],
+      "matched_files": [],
+      "retrieved_contents": [
+        {
+          "content": "---\n\n## Additional Locations\n\nZX Bank ATMs are also operational at several shopping malls, airports, hospitals, and university campuses across Nepal. For the most updated list or to find the nearest A...",
+          "source": "Nepal ATM Locations.md",
+          "metadata": {
+            "file_type": ".md",
+            "md5": "29556176c702d39101de89bd257f50b2",
+            "file_path": "data/knowledge/zx_bank/file_store/files/Nepal ATM Locations.md",
+            "source": "Nepal ATM Locations.md",
+            "rerank_score": 0.7211223415257226
+          }
+        },
+        {
+          "content": "For help, contact ZX Bank Customer Care via the **ZX Bank Asia** mobile app or visit [www.zxbank.asia](http://www.zxbank.asia).\n\n---",
+          "source": "ZX Bank Credit Card Help.md",
+          "metadata": {
+            "file_path": "data/knowledge/zx_bank/file_store/files/ZX Bank Credit Card Help.md",
+            "source": "ZX Bank Credit Card Help.md",
+            "file_type": ".md",
+            "md5": "082ab956564c47a1b90e848bee2c8113",
+            "rerank_score": 0.6683164959928793
+          }
+        },
+        {
+          "content": "# ZX Bank – ATM Locations in Sri Lanka\n\nZX Bank is committed to providing convenient and secure banking services across Sri Lanka. Below is a list of prominent ATM locations throughout the country alo...",
+          "source": "ATM Locations in Sri Lanka.md",
+          "metadata": {
+            "md5": "b2b3092cb029cce973561adffa0bf622",
+            "source": "ATM Locations in Sri Lanka.md",
+            "file_type": ".md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/ATM Locations in Sri Lanka.md",
+            "rerank_score": 0.6251513968996237
+          }
+        },
+        {
+          "content": "# ZX Bank Ltd. – Pune Branch Network Directory",
+          "source": "Pune Branch Network.md",
+          "metadata": {
+            "file_path": "data/knowledge/zx_bank/file_store/files/Pune Branch Network.md",
+            "file_type": ".md",
+            "source": "Pune Branch Network.md",
+            "md5": "cf46a2a4ff2cde879ea914a51252af6b",
+            "rerank_score": 0.6216608014255396
+          }
+        },
+        {
+          "content": "---\n\n_For more assistance, contact the nearest ZX Bank branch or call customer care via the ZX Bank Asia app._\n\n🔗 [Visit ZX Bank Website](https://www.zxbank.asia)",
+          "source": "Savings Account to a Salary Account.md",
+          "metadata": {
+            "source": "Savings Account to a Salary Account.md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/Savings Account to a Salary Account.md",
+            "file_type": ".md",
+            "md5": "4be9bd9d547ec522289cbc9a4d97a639",
+            "rerank_score": 0.845231801645481
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "Branch Network in Bhutan.md",
+          "text": "For the Paro Region, the branch located on Main Street, Paro Town can be contacted at +975-8-272502."
+        }
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0,
+      "success": true
+    },
+    {
+      "query": "Why might businesses choose ZX Bank for their current account needs?",
+      "enterprise": "ZX Bank",
+      "query_type": "Analytical",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "Current Account Overview.md"
+      ],
+      "retrieved_files": [
+        "Visakhapatnam Branch Network.md",
+        "Branch Network in Nepal.md",
+        "ZX Bank – Business Loans.md",
+        "Current Account Overview.md"
+      ],
+      "matched_files": [
+        "Current Account Overview.md"
+      ],
+      "retrieved_contents": [
+        {
+          "content": "---\n\n## Why Choose ZX Bank for Business Loans?\n\n- **Pan-South Asia Presence**: Access loan solutions in India, Sri Lanka, Bangladesh, Bhutan, and Nepal.\n- **Fast Approvals**: Streamlined e-KYC and dig...",
+          "source": "ZX Bank – Business Loans.md",
+          "metadata": {
+            "file_path": "data/knowledge/zx_bank/file_store/files/ZX Bank – Business Loans.md",
+            "md5": "440680bf41d437ef68814d6de56a7795",
+            "file_type": ".md",
+            "source": "ZX Bank – Business Loans.md",
+            "rerank_score": 0.8698989090152595
+          }
+        },
+        {
+          "content": "---\n\n## Why Choose ZX Bank for Your Current Account?\n\n- **Paperless Digital Onboarding**\n- **Rewarding Welcome Kit**\n- **Easy Access to Funds and Credit**\n- **Comprehensive Insurance Coverage**\n- **Pa...",
+          "source": "Current Account Overview.md",
+          "metadata": {
+            "file_path": "data/knowledge/zx_bank/file_store/files/Current Account Overview.md",
+            "source": "Current Account Overview.md",
+            "file_type": ".md",
+            "md5": "7a0850e27f55db64fcbfe3661648d7bc",
+            "rerank_score": 0.8104749661491863
+          }
+        },
+        {
+          "content": "---\n\n## Need Guidance?\n\n- **AI Finance Assistant \"Zia\"**: Instantly check eligibility, required documents, and estimated EMIs via the ZX Bank Asia app.\n- **Dedicated Relationship Managers**: Available...",
+          "source": "ZX Bank – Business Loans.md",
+          "metadata": {
+            "file_type": ".md",
+            "source": "ZX Bank – Business Loans.md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/ZX Bank – Business Loans.md",
+            "md5": "1d7b63143e4156e2ecc7df5875b5c917",
+            "rerank_score": 0.7747299167195536
+          }
+        },
+        {
+          "content": "ZX Bank has established a robust and customer-focused branch network across Nepal, ensuring that both urban and semi-urban populations have easy access to modern banking services. With a strategic foc...",
+          "source": "Branch Network in Nepal.md",
+          "metadata": {
+            "source": "Branch Network in Nepal.md",
+            "md5": "200a17ddee8080c693df9d8519087de8",
+            "file_path": "data/knowledge/zx_bank/file_store/files/Branch Network in Nepal.md",
+            "file_type": ".md",
+            "rerank_score": 0.7133881301913851
+          }
+        },
+        {
+          "content": "ZX Bank Ltd. maintains a robust footprint in Visakhapatnam, ensuring accessible and modern banking solutions for residents across the city’s diverse regions. With a focus on customer-centric service a...",
+          "source": "Visakhapatnam Branch Network.md",
+          "metadata": {
+            "md5": "6dcb25f97319b4b3318feda9d454356e",
+            "file_type": ".md",
+            "source": "Visakhapatnam Branch Network.md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/Visakhapatnam Branch Network.md",
+            "rerank_score": 0.7092834111598334
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "Current Account Overview.md",
+          "text": "- Paperless Digital Onboarding\n- Rewarding Welcome Kit\n- Easy Access to Funds and Credit\n- Comprehensive Insurance Coverage\n- Pan-South Asia Remittance Support\n- Priority Servicing\n- Full Digital Control via ZX Bank Asia App"
+        }
+      ],
+      "precision": 0.25,
+      "recall": 1.0,
+      "f1_score": 0.4,
+      "success": true
+    },
+    {
+      "query": "Why is it important to keep baggage tags and boarding passes with CloudWay 24?",
+      "enterprise": "Cloudway 24",
+      "query_type": "Analytical",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "Delayed Baggage.md"
+      ],
+      "retrieved_files": [
+        "Delayed Baggage.md",
+        "Baggage Allowance.md",
+        "Damaged Baggage Policy.md"
+      ],
+      "matched_files": [
+        "Delayed Baggage.md"
+      ],
+      "retrieved_contents": [
+        {
+          "content": "---\n\n## Helpful Tips\n\n- Keep your bag tags and receipts until the end of your journey.\n- Inspect your baggage immediately upon collection.\n- Use name labels on your baggage.\n\n---\n\n*For full terms and ...",
+          "source": "Damaged Baggage Policy.md",
+          "metadata": {
+            "md5": "dd9e1756c2c5a5fd83562e6c40fb0b12",
+            "file_type": ".md",
+            "file_path": "data/knowledge/cloudway_24/file_store/files/Damaged Baggage Policy.md",
+            "source": "Damaged Baggage Policy.md",
+            "rerank_score": 0.771710650083968
+          }
+        },
+        {
+          "content": "---\n\n## Important Tips\n\n- Always label your checked bags with your name and contact details.\n- Keep your baggage tags and boarding passes until you collect your luggage.\n- Pack essential medication an...",
+          "source": "Delayed Baggage.md",
+          "metadata": {
+            "file_type": ".md",
+            "source": "Delayed Baggage.md",
+            "md5": "e075453e805d630128b73292af146846",
+            "file_path": "data/knowledge/cloudway_24/file_store/files/Delayed Baggage.md",
+            "rerank_score": 0.7706589528501675
+          }
+        },
+        {
+          "content": "# Delayed Baggage – CloudWay 24\n\nTraveling with CloudWay 24 should always be seamless, but in rare cases, your checked baggage may be delayed. Here’s what you need to know and how we support you throu...",
+          "source": "Delayed Baggage.md",
+          "metadata": {
+            "file_path": "data/knowledge/cloudway_24/file_store/files/Delayed Baggage.md",
+            "source": "Delayed Baggage.md",
+            "md5": "99536b7a3e74b4c7955f74ff8341d7f1",
+            "file_type": ".md",
+            "rerank_score": 0.7097561314227695
+          }
+        },
+        {
+          "content": "For the most up-to-date baggage rules and detailed FAQs, visit [CloudWay24.com/Baggage](https://CloudWay24.com/Baggage) or check the \"Baggage Policy\" section in the CloudWay24 app.\n\n---\n*Travel smooth...",
+          "source": "Baggage Allowance.md",
+          "metadata": {
+            "file_path": "data/knowledge/cloudway_24/file_store/files/Baggage Allowance.md",
+            "md5": "627231a375cb78d1ea1f52b2ca63f6de",
+            "source": "Baggage Allowance.md",
+            "file_type": ".md",
+            "rerank_score": 0.6744818018939286
+          }
+        },
+        {
+          "content": "---\n\n## Exclusions\n\n- Fragile, perishable, or valuable items packed in checked luggage\n- Incorrectly packed or overstuffed baggage\n- Minor cosmetic damages\n- Delayed reporting (claims after 7 days of ...",
+          "source": "Damaged Baggage Policy.md",
+          "metadata": {
+            "source": "Damaged Baggage Policy.md",
+            "md5": "3cc1f40ef24741612fee3822731d6951",
+            "file_path": "data/knowledge/cloudway_24/file_store/files/Damaged Baggage Policy.md",
+            "file_type": ".md",
+            "rerank_score": 0.6723145573628284
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "Delayed Baggage.md",
+          "text": "Keeping your baggage tags and boarding passes ensures you can report any issues with your luggage accurately and facilitates the tracking and retrieval process in case of delays."
+        }
+      ],
+      "precision": 0.3333333333333333,
+      "recall": 1.0,
+      "f1_score": 0.5,
+      "success": true
+    },
+    {
+      "query": "How can I contact the ZX Bank branch in Biratnagar?",
+      "enterprise": "ZX Bank",
+      "query_type": "Procedural",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "Branch Network in Nepal.md"
+      ],
+      "retrieved_files": [
+        "Savings Account Overview.md",
+        "Pune Branch Network.md",
+        "Savings Account to a Salary Account.md",
+        "ZX Bank Credit Card Help.md",
+        "Nepal ATM Locations.md"
+      ],
+      "matched_files": [],
+      "retrieved_contents": [
+        {
+          "content": "---\n\n## Additional Locations\n\nZX Bank ATMs are also operational at several shopping malls, airports, hospitals, and university campuses across Nepal. For the most updated list or to find the nearest A...",
+          "source": "Nepal ATM Locations.md",
+          "metadata": {
+            "file_type": ".md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/Nepal ATM Locations.md",
+            "md5": "29556176c702d39101de89bd257f50b2",
+            "source": "Nepal ATM Locations.md",
+            "rerank_score": 0.7207364559944487
+          }
+        },
+        {
+          "content": "For help, contact ZX Bank Customer Care via the **ZX Bank Asia** mobile app or visit [www.zxbank.asia](http://www.zxbank.asia).\n\n---",
+          "source": "ZX Bank Credit Card Help.md",
+          "metadata": {
+            "source": "ZX Bank Credit Card Help.md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/ZX Bank Credit Card Help.md",
+            "file_type": ".md",
+            "md5": "082ab956564c47a1b90e848bee2c8113",
+            "rerank_score": 0.7095211109251355
+          }
+        },
+        {
+          "content": "---\n\n## How to Apply for a ZX Bank Savings Account\n\nYou can open a ZX Bank Savings Account easily through these channels:\n\n### 1. **Via Mobile App or Website**\n   - Download the **ZX Bank Asia** app (...",
+          "source": "Savings Account Overview.md",
+          "metadata": {
+            "source": "Savings Account Overview.md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/Savings Account Overview.md",
+            "file_type": ".md",
+            "md5": "217e477f32af6654055bdc1b1f03b3ba",
+            "rerank_score": 0.6440350145338274
+          }
+        },
+        {
+          "content": "---\n\n_For more assistance, contact the nearest ZX Bank branch or call customer care via the ZX Bank Asia app._\n\n🔗 [Visit ZX Bank Website](https://www.zxbank.asia)",
+          "source": "Savings Account to a Salary Account.md",
+          "metadata": {
+            "source": "Savings Account to a Salary Account.md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/Savings Account to a Salary Account.md",
+            "file_type": ".md",
+            "md5": "4be9bd9d547ec522289cbc9a4d97a639",
+            "rerank_score": 0.845231801645481
+          }
+        },
+        {
+          "content": "throughout the city. Below, you’ll find the detailed listings of 40 ZX Bank branches categorized by region, with branch addresses, IFSC codes, and contact numbers.",
+          "source": "Pune Branch Network.md",
+          "metadata": {
+            "source": "Pune Branch Network.md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/Pune Branch Network.md",
+            "file_type": ".md",
+            "md5": "60f30d9388610c256d6bddb956b42770",
+            "rerank_score": 0.6036326388370661
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "Branch Network in Nepal.md",
+          "text": "Province No. 1\n1. Biratnagar Main Road, Biratnagar-9 | IFSC Code: ZXIN0001001 | Contact Number: +977-21-570001"
+        }
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0,
+      "success": true
+    },
+    {
+      "query": "What is the boarding sequence for CloudWay 24 flights?",
+      "enterprise": "Cloudway 24",
+      "query_type": "Descriptive",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "Boarding Process.md"
+      ],
+      "retrieved_files": [
+        "Boarding Process.md",
+        "Lounge Access.md",
+        "Delayed Baggage.md",
+        "Web Check-In Guide.md"
+      ],
+      "matched_files": [
+        "Boarding Process.md"
+      ],
+      "retrieved_contents": [
+        {
+          "content": "---\n\n## 4. **Proceed to Gate**\n\n- Check your boarding gate on your boarding pass, the airport displays, or the CloudWay 24 app.\n- Boarding gates typically open 60 minutes and close 20 minutes before d...",
+          "source": "Boarding Process.md",
+          "metadata": {
+            "file_path": "data/knowledge/cloudway_24/file_store/files/Boarding Process.md",
+            "source": "Boarding Process.md",
+            "file_type": ".md",
+            "md5": "d0630d5f04d82312e9649101c3d15f2a",
+            "rerank_score": 0.9656563496829822
+          }
+        },
+        {
+          "content": "# Boarding Process with CloudWay 24\n\nCloudWay 24 is committed to delivering a smooth and efficient boarding experience for all passengers. Below is an outline of the standard boarding process, from ch...",
+          "source": "Boarding Process.md",
+          "metadata": {
+            "file_type": ".md",
+            "file_path": "data/knowledge/cloudway_24/file_store/files/Boarding Process.md",
+            "md5": "e9fb441cdf95a6de475904fec5147898",
+            "source": "Boarding Process.md",
+            "rerank_score": 0.7660806223664741
+          }
+        },
+        {
+          "content": "---\n\n### 4. **CloudSaver (Economy)**\n- **Access:** Not included\n- **Eligibility:**\n  - Available for purchase (subject to availability)\n  - Complimentary for SkyPoints 24 Platinum members\n\n---\n\n## How...",
+          "source": "Lounge Access.md",
+          "metadata": {
+            "source": "Lounge Access.md",
+            "file_path": "data/knowledge/cloudway_24/file_store/files/Lounge Access.md",
+            "file_type": ".md",
+            "md5": "8a89f261e09093c0fea9420b5f7e00f3",
+            "rerank_score": 0.7029200761253669
+          }
+        },
+        {
+          "content": "# Web Check-In Guide – CloudWay 24\n\nWeb check-in with CloudWay 24 is an easy and convenient way to confirm your travel, choose your seat, and save valuable time at the airport. Here’s everything you n...",
+          "source": "Web Check-In Guide.md",
+          "metadata": {
+            "source": "Web Check-In Guide.md",
+            "file_path": "data/knowledge/cloudway_24/file_store/files/Web Check-In Guide.md",
+            "file_type": ".md",
+            "md5": "7956e4bd4d828466b7cab34658e6d996",
+            "rerank_score": 0.6463740298916907
+          }
+        },
+        {
+          "content": "# Delayed Baggage – CloudWay 24\n\nTraveling with CloudWay 24 should always be seamless, but in rare cases, your checked baggage may be delayed. Here’s what you need to know and how we support you throu...",
+          "source": "Delayed Baggage.md",
+          "metadata": {
+            "source": "Delayed Baggage.md",
+            "file_path": "data/knowledge/cloudway_24/file_store/files/Delayed Baggage.md",
+            "file_type": ".md",
+            "md5": "99536b7a3e74b4c7955f74ff8341d7f1",
+            "rerank_score": 0.6263289312644964
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "Boarding Process.md",
+          "text": "1. **Pre-Boarding:** Passengers who need special assistance, unaccompanied minors, and families with small children.\n2. **Priority Boarding:** CloudLux, CloudElite, and eligible SkyPoints 24 members.\n3. **Zone Boarding:** Remaining passengers board by zone, as indicated on the boarding pass or by gate staff.\n4. **Final Call:** Last chance to board; listen for announcements."
+        }
+      ],
+      "precision": 0.25,
+      "recall": 1.0,
+      "f1_score": 0.4,
+      "success": true
+    },
+    {
+      "query": "Does Velvera have an authorized service center in Kochi?",
+      "enterprise": "Velvera Technologies",
+      "query_type": "Boolean",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "store_locations.md"
+      ],
+      "retrieved_files": [
+        "store_locations.md",
+        "tablet_usage_guide.md",
+        "velvera_plus.md",
+        "warranty_and_service.md"
+      ],
+      "matched_files": [
+        "store_locations.md"
+      ],
+      "retrieved_contents": [
+        {
+          "content": "| VL-005   | Velvera Mall of Kochi         | Kochi        | Kerala            | Unit 108, Lulu Mall, Edappally, Kochi 682024           | 0484-6729021    | 10 AM - 9 PM, All Days| Thomas Mathew        ...",
+          "source": "store_locations.md",
+          "metadata": {
+            "md5": "bb3148a93f0c083660fff3ac57b71986",
+            "source": "store_locations.md",
+            "file_type": ".md",
+            "file_path": "data/knowledge/velvera_technologies/file_store/files/store_locations.md",
+            "rerank_score": 0.8527471117802121
+          }
+        },
+        {
+          "content": "---\n\n###  Service Network\n\nVelvera ensures nationwide accessibility and rapid repairs, backed by professional diagnostics and genuine parts.\n\n####  Authorized Service Centers\n\n- **400+ service centers...",
+          "source": "warranty_and_service.md",
+          "metadata": {
+            "md5": "7fd6730cca70de775de0017e8e99b370",
+            "source": "warranty_and_service.md",
+            "file_path": "data/knowledge/velvera_technologies/file_store/files/warranty_and_service.md",
+            "file_type": ".md",
+            "rerank_score": 0.7455951985453362
+          }
+        },
+        {
+          "content": "| Accessory not detected               | Reattach accessory, check for updates; restart device      |\n| Rapid battery drain                  | Reduce screen brightness, close background apps          ...",
+          "source": "tablet_usage_guide.md",
+          "metadata": {
+            "source": "tablet_usage_guide.md",
+            "file_path": "data/knowledge/velvera_technologies/file_store/files/tablet_usage_guide.md",
+            "file_type": ".md",
+            "md5": "706181d5dd683750eb5fca1c0fd08f17",
+            "rerank_score": 0.703781317055258
+          }
+        },
+        {
+          "content": "---\n\n### Velvera Authorized Service Centers",
+          "source": "store_locations.md",
+          "metadata": {
+            "file_path": "data/knowledge/velvera_technologies/file_store/files/store_locations.md",
+            "file_type": ".md",
+            "md5": "622238a7b55879272fd2bd29243d9a83",
+            "source": "store_locations.md",
+            "rerank_score": 0.6735491116599575
+          }
+        },
+        {
+          "content": "- **Express Replacement Service**: Receive a replacement device before returning the original for eligible issues.\n- **Priority Support**: 24x7 hotline and live chat access with expert technicians.\n- ...",
+          "source": "velvera_plus.md",
+          "metadata": {
+            "source": "velvera_plus.md",
+            "file_path": "data/knowledge/velvera_technologies/file_store/files/velvera_plus.md",
+            "file_type": ".md",
+            "md5": "e2b8a84cba928a6d2dbc6349b0b89743",
+            "rerank_score": 0.6279995206754003
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "store_locations.md",
+          "text": "Yes, Velvera has an authorized service center in Kochi called Riverstone Service Solutions, located at 54, Sarovaram BioPark, Kakkanad. You can reach them at 0484-3560033 or email Athira Sebastian at riverstone.kochi@velvera.com."
+        }
+      ],
+      "precision": 0.25,
+      "recall": 1.0,
+      "f1_score": 0.4,
+      "success": true
+    },
+    {
+      "query": "Where are ZX Bank ATMs located in Mumbai?",
+      "enterprise": "ZX Bank",
+      "query_type": "Descriptive",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "ATM Locations at Major Hospitals.md"
+      ],
+      "retrieved_files": [
+        "Network in Mumbai.md",
+        "ATM Locations at Major Shopping Malls.md",
+        "ATM Locations at Major Hospitals.md",
+        "Nepal ATM Locations.md",
+        "ZX Bank ATMs at Major Bus Stands (India).md"
+      ],
+      "matched_files": [
+        "ATM Locations at Major Hospitals.md"
+      ],
+      "retrieved_contents": [
+        {
+          "content": "# ZX Bank ATM Locations at Major Hospitals\n\nBelow is a list of ZX Bank ATMs located at major hospitals across key cities in India. **(Addresses are provided as realistic examples and may be used as pl...",
+          "source": "ATM Locations at Major Hospitals.md",
+          "metadata": {
+            "source": "ATM Locations at Major Hospitals.md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/ATM Locations at Major Hospitals.md",
+            "file_type": ".md",
+            "md5": "7bfa3b29b0a893aaeceb4cc34fd0a2ea",
+            "rerank_score": 0.9439725728348537
+          }
+        },
+        {
+          "content": "# ZX Bank ATMs at Major Bus Stands (India)\n\nZX Bank ensures easy cash access for commuters by providing ATM services at major bus stands across the following cities:\n\n---\n\n## Mumbai – Maharashtra\n\n1. ...",
+          "source": "ZX Bank ATMs at Major Bus Stands (India).md",
+          "metadata": {
+            "source": "ZX Bank ATMs at Major Bus Stands (India).md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/ZX Bank ATMs at Major Bus Stands (India).md",
+            "md5": "c3c768308e310c565eee39a37c596624",
+            "file_type": ".md",
+            "rerank_score": 0.9351271882359498
+          }
+        },
+        {
+          "content": "# ZX Bank ATM Locations at Major Shopping Malls\n\nBelow is a list of major shopping malls in select Indian cities where ZX Bank ATMs are available for customer convenience.\n\n---\n\n## Mumbai – Maharashtr...",
+          "source": "ATM Locations at Major Shopping Malls.md",
+          "metadata": {
+            "file_path": "data/knowledge/zx_bank/file_store/files/ATM Locations at Major Shopping Malls.md",
+            "source": "ATM Locations at Major Shopping Malls.md",
+            "file_type": ".md",
+            "md5": "8669ab85186538a1034b9201ddd9cb97",
+            "rerank_score": 0.9098026545101611
+          }
+        },
+        {
+          "content": "---\n\n## Additional Locations\n\nZX Bank ATMs are also operational at several shopping malls, airports, hospitals, and university campuses across Nepal. For the most updated list or to find the nearest A...",
+          "source": "Nepal ATM Locations.md",
+          "metadata": {
+            "file_type": ".md",
+            "source": "Nepal ATM Locations.md",
+            "md5": "29556176c702d39101de89bd257f50b2",
+            "file_path": "data/knowledge/zx_bank/file_store/files/Nepal ATM Locations.md",
+            "rerank_score": 0.7079671470320648
+          }
+        },
+        {
+          "content": "Mumbai, as a financial powerhouse of India, is central to ZX Bank's operations and service delivery. To ensure citywide coverage and facilitate ease of banking, ZX Bank has established a robust presen...",
+          "source": "Network in Mumbai.md",
+          "metadata": {
+            "file_path": "data/knowledge/zx_bank/file_store/files/Network in Mumbai.md",
+            "file_type": ".md",
+            "md5": "4a748c27470ce62d0d775df8bd2995fe",
+            "source": "Network in Mumbai.md",
+            "rerank_score": 0.654437573500468
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "ATM Locations at Major Hospitals.md",
+          "text": "Below is a list of ZX Bank ATMs located at major hospitals across key cities in India."
+        },
+        {
+          "filename": "ATM Locations at Major Hospitals.md",
+          "text": "Mumbai, Maharashtra\n- **Lilavati Hospital & Research Centre** \n A-791, Bandra Reclamation, Bandra West, Mumbai, Maharashtra 400050\n- **Kokilaben Dhirubhai Ambani Hospital** \n Rao Saheb Achutrao Patwardhan Marg, Four Bungalows, Andheri West, Mumbai, Maharashtra 400053"
+        }
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "f1_score": 0.33333333333333337,
+      "success": true
+    },
+    {
+      "query": "How can I locate the nearest ZX Bank ATM?",
+      "enterprise": "ZX Bank",
+      "query_type": "Procedural",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "Bangladesh ATM Locations.md"
+      ],
+      "retrieved_files": [
+        "Savings Account to a Salary Account.md",
+        "ATMs at Railway Stations and Airports.md",
+        "ATM Locations in Sri Lanka.md",
+        "ATM Locations at Major Shopping Malls.md",
+        "Nepal ATM Locations.md"
+      ],
+      "matched_files": [],
+      "retrieved_contents": [
+        {
+          "content": "---\n\n## Additional Locations\n\nZX Bank ATMs are also operational at several shopping malls, airports, hospitals, and university campuses across Nepal. For the most updated list or to find the nearest A...",
+          "source": "Nepal ATM Locations.md",
+          "metadata": {
+            "source": "Nepal ATM Locations.md",
+            "md5": "29556176c702d39101de89bd257f50b2",
+            "file_path": "data/knowledge/zx_bank/file_store/files/Nepal ATM Locations.md",
+            "file_type": ".md",
+            "rerank_score": 0.9364505854365507
+          }
+        },
+        {
+          "content": "---\n\n> **All ZX Bank ATMs at these locations support: Cash Withdrawal, Balance Enquiry, Mini Statements, Fund Transfer (card-to-card), Fast Pay, and Recharge Services. Many ATMs have 24x7 security and...",
+          "source": "ATMs at Railway Stations and Airports.md",
+          "metadata": {
+            "file_type": ".md",
+            "source": "ATMs at Railway Stations and Airports.md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/ATMs at Railway Stations and Airports.md",
+            "md5": "2eceeff24b8f2b93108aeadaaf3d6e37",
+            "rerank_score": 0.9198452722836143
+          }
+        },
+        {
+          "content": "# ZX Bank – ATM Locations in Sri Lanka\n\nZX Bank is committed to providing convenient and secure banking services across Sri Lanka. Below is a list of prominent ATM locations throughout the country alo...",
+          "source": "ATM Locations in Sri Lanka.md",
+          "metadata": {
+            "source": "ATM Locations in Sri Lanka.md",
+            "file_type": ".md",
+            "md5": "b2b3092cb029cce973561adffa0bf622",
+            "file_path": "data/knowledge/zx_bank/file_store/files/ATM Locations in Sri Lanka.md",
+            "rerank_score": 0.8723988663283633
+          }
+        },
+        {
+          "content": "---\n\n> *Note: Availability of ZX Bank ATMs subject to change. Please check on the ZX Bank Asia mobile app or [www.zxbank.asia](https://www.zxbank.asia) for the latest locations.*",
+          "source": "ATM Locations at Major Shopping Malls.md",
+          "metadata": {
+            "file_path": "data/knowledge/zx_bank/file_store/files/ATM Locations at Major Shopping Malls.md",
+            "source": "ATM Locations at Major Shopping Malls.md",
+            "md5": "44b1b0a205bf455b1d79f58d904cf9d2",
+            "file_type": ".md",
+            "rerank_score": 0.8638535126500722
+          }
+        },
+        {
+          "content": "---\n\n_For more assistance, contact the nearest ZX Bank branch or call customer care via the ZX Bank Asia app._\n\n🔗 [Visit ZX Bank Website](https://www.zxbank.asia)",
+          "source": "Savings Account to a Salary Account.md",
+          "metadata": {
+            "source": "Savings Account to a Salary Account.md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/Savings Account to a Salary Account.md",
+            "file_type": ".md",
+            "md5": "4be9bd9d547ec522289cbc9a4d97a639",
+            "rerank_score": 0.845231801645481
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "Bangladesh ATM Locations.md",
+          "text": "Need Help? Locate your nearest ATM with the [ZX Bank Asia App](#) or visit [www.zxbank.asia](http://www.zxbank.asia)"
+        }
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0,
+      "success": true
+    },
+    {
+      "query": "Where are ZX Bank ATMs located in Mumbai?",
+      "enterprise": "ZX Bank",
+      "query_type": "Descriptive",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "ATM Locations at Major Shopping Malls.md"
+      ],
+      "retrieved_files": [
+        "Network in Mumbai.md",
+        "ATM Locations at Major Shopping Malls.md",
+        "ATM Locations at Major Hospitals.md",
+        "Nepal ATM Locations.md",
+        "ZX Bank ATMs at Major Bus Stands (India).md"
+      ],
+      "matched_files": [
+        "ATM Locations at Major Shopping Malls.md"
+      ],
+      "retrieved_contents": [
+        {
+          "content": "# ZX Bank ATM Locations at Major Hospitals\n\nBelow is a list of ZX Bank ATMs located at major hospitals across key cities in India. **(Addresses are provided as realistic examples and may be used as pl...",
+          "source": "ATM Locations at Major Hospitals.md",
+          "metadata": {
+            "source": "ATM Locations at Major Hospitals.md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/ATM Locations at Major Hospitals.md",
+            "file_type": ".md",
+            "md5": "7bfa3b29b0a893aaeceb4cc34fd0a2ea",
+            "rerank_score": 0.9439725728348537
+          }
+        },
+        {
+          "content": "# ZX Bank ATMs at Major Bus Stands (India)\n\nZX Bank ensures easy cash access for commuters by providing ATM services at major bus stands across the following cities:\n\n---\n\n## Mumbai – Maharashtra\n\n1. ...",
+          "source": "ZX Bank ATMs at Major Bus Stands (India).md",
+          "metadata": {
+            "md5": "c3c768308e310c565eee39a37c596624",
+            "source": "ZX Bank ATMs at Major Bus Stands (India).md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/ZX Bank ATMs at Major Bus Stands (India).md",
+            "file_type": ".md",
+            "rerank_score": 0.9351271882359498
+          }
+        },
+        {
+          "content": "# ZX Bank ATM Locations at Major Shopping Malls\n\nBelow is a list of major shopping malls in select Indian cities where ZX Bank ATMs are available for customer convenience.\n\n---\n\n## Mumbai – Maharashtr...",
+          "source": "ATM Locations at Major Shopping Malls.md",
+          "metadata": {
+            "file_type": ".md",
+            "source": "ATM Locations at Major Shopping Malls.md",
+            "md5": "8669ab85186538a1034b9201ddd9cb97",
+            "file_path": "data/knowledge/zx_bank/file_store/files/ATM Locations at Major Shopping Malls.md",
+            "rerank_score": 0.9098026545101611
+          }
+        },
+        {
+          "content": "---\n\n## Additional Locations\n\nZX Bank ATMs are also operational at several shopping malls, airports, hospitals, and university campuses across Nepal. For the most updated list or to find the nearest A...",
+          "source": "Nepal ATM Locations.md",
+          "metadata": {
+            "file_path": "data/knowledge/zx_bank/file_store/files/Nepal ATM Locations.md",
+            "source": "Nepal ATM Locations.md",
+            "md5": "29556176c702d39101de89bd257f50b2",
+            "file_type": ".md",
+            "rerank_score": 0.7079671470320648
+          }
+        },
+        {
+          "content": "Mumbai, as a financial powerhouse of India, is central to ZX Bank's operations and service delivery. To ensure citywide coverage and facilitate ease of banking, ZX Bank has established a robust presen...",
+          "source": "Network in Mumbai.md",
+          "metadata": {
+            "file_path": "data/knowledge/zx_bank/file_store/files/Network in Mumbai.md",
+            "file_type": ".md",
+            "md5": "4a748c27470ce62d0d775df8bd2995fe",
+            "source": "Network in Mumbai.md",
+            "rerank_score": 0.654437573500468
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "ATM Locations at Major Shopping Malls.md",
+          "text": "Mumbai – Maharashtra\n- **Phoenix Marketcity, Kurla**\n - Address: LBS Road, Kurla West, Mumbai, Maharashtra 400070\n- **Oberoi Mall**\n - Address: Western Express Highway, Goregaon East, Mumbai, Maharashtra 400063\n- **R City Mall**\n - Address: LBS Marg, Ghatkopar West, Mumbai, Maharashtra 400086"
+        }
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "f1_score": 0.33333333333333337,
+      "success": true
+    },
+    {
+      "query": "How can I access Cendara University’s accreditation documents?",
+      "enterprise": "Cendara University",
+      "query_type": "Procedural",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "accreditation_status.md"
+      ],
+      "retrieved_files": [
+        "entrance_exxam_guidelines.md",
+        "accreditation_status.md",
+        "student_exchange_program.md"
+      ],
+      "matched_files": [
+        "accreditation_status.md"
+      ],
+      "retrieved_contents": [
+        {
+          "content": "---\n\n## 6. Accreditation Documents Access\n\nOfficial documentation and detailed accreditation reports are available by request at the Office of Institutional Compliance, Founders Hall, Room 410, or by ...",
+          "source": "accreditation_status.md",
+          "metadata": {
+            "file_path": "data/knowledge/cendara_university/file_store/files/accreditation_status.md",
+            "source": "accreditation_status.md",
+            "file_type": ".md",
+            "md5": "715bae01f357b7aad6a6e402162bb2b6",
+            "rerank_score": 0.985890866059624
+          }
+        },
+        {
+          "content": "- Pre-arrival orientation \n- Dedicated exchange student housing in Sterling Residence Hall\n- Academic advising and language support\n- Peer mentorship and local culture introduction\n\n---\n\n## 3. Faculty...",
+          "source": "student_exchange_program.md",
+          "metadata": {
+            "source": "student_exchange_program.md",
+            "file_path": "data/knowledge/cendara_university/file_store/files/student_exchange_program.md",
+            "file_type": ".md",
+            "md5": "1d2e7a1ee2aa9851f299afca29e956ce",
+            "rerank_score": 0.6894336107644803
+          }
+        },
+        {
+          "content": "# Cendara University Accreditation Status\n\n## Overview\n\nCendara University is a fully accredited higher education institution recognized nationally and internationally for its commitment to academic e...",
+          "source": "accreditation_status.md",
+          "metadata": {
+            "file_type": ".md",
+            "source": "accreditation_status.md",
+            "md5": "9356be4c04f432178e8e94a63223b92e",
+            "file_path": "data/knowledge/cendara_university/file_store/files/accreditation_status.md",
+            "rerank_score": 0.6667647656590601
+          }
+        },
+        {
+          "content": "---\n\n## Overview\n\nCendara University administers entrance examinations for select undergraduate and graduate academic programs to ensure a high standard of academic readiness and to appropriately plac...",
+          "source": "entrance_exxam_guidelines.md",
+          "metadata": {
+            "source": "entrance_exxam_guidelines.md",
+            "file_path": "data/knowledge/cendara_university/file_store/files/entrance_exxam_guidelines.md",
+            "md5": "14b9cae17f1b696fe4d25530e8b876dd",
+            "file_type": ".md",
+            "rerank_score": 0.5968326181995146
+          }
+        },
+        {
+          "content": "# Cendara University Entrance Exam Information\n\n---\n\n## Overview",
+          "source": "entrance_exxam_guidelines.md",
+          "metadata": {
+            "file_path": "data/knowledge/cendara_university/file_store/files/entrance_exxam_guidelines.md",
+            "md5": "1dbee276105dc1485cccc4081e50aaf8",
+            "file_type": ".md",
+            "source": "entrance_exxam_guidelines.md",
+            "rerank_score": 0.5632638044171576
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "accreditation_status.md",
+          "text": "Official documentation and detailed accreditation reports are available by request at the Office of Institutional Compliance, Founders Hall, Room 410, or by email at accreditation@cendara.edu."
+        }
+      ],
+      "precision": 0.3333333333333333,
+      "recall": 1.0,
+      "f1_score": 0.5,
+      "success": true
+    },
+    {
+      "query": "How can I contact the Department of Computer Science at Cendara University?",
+      "enterprise": "Cendara University",
+      "query_type": "Procedural",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "dept_of_Computer_Science_Catalog.md"
+      ],
+      "retrieved_files": [
+        "contact_information.md",
+        "dept_of_Economics_Catalog.md",
+        "dept_of_Computer_Science_Catalog.md",
+        "student_exchange_program.md",
+        "faculty_directory.md"
+      ],
+      "matched_files": [
+        "dept_of_Computer_Science_Catalog.md"
+      ],
+      "retrieved_contents": [
+        {
+          "content": "**Department of Computer Science**  \nCendara University  \nEmail: cs-advising@cendara.edu  \nPhone: +1 (845) 555-7812\n\n---",
+          "source": "dept_of_Computer_Science_Catalog.md",
+          "metadata": {
+            "file_path": "data/knowledge/cendara_university/file_store/files/dept_of_Computer_Science_Catalog.md",
+            "source": "dept_of_Computer_Science_Catalog.md",
+            "file_type": ".md",
+            "md5": "bf30a0e12aadf46b204646cdf00cf9cf",
+            "rerank_score": 0.9453420012979769
+          }
+        },
+        {
+          "content": "---\n\n## 6. Contact & Additional Information\n\n**Cendara University Office of International Affairs**\n\n- Email: international.affairs@cendara.edu\n- Phone: +1 (839) 452-0108\n- Location: Hathaway Building...",
+          "source": "student_exchange_program.md",
+          "metadata": {
+            "md5": "c551d30b95ecdc3339fc6f94a8352875",
+            "file_path": "data/knowledge/cendara_university/file_store/files/student_exchange_program.md",
+            "source": "student_exchange_program.md",
+            "file_type": ".md",
+            "rerank_score": 0.9045594146700173
+          }
+        },
+        {
+          "content": "---\n\nFor all general inquiries, contact the Office of the Provost at provost@cendara.edu. Full faculty biographies and research profiles are available at [faculty.cendara.edu](https://faculty.cendara....",
+          "source": "faculty_directory.md",
+          "metadata": {
+            "source": "faculty_directory.md",
+            "file_path": "data/knowledge/cendara_university/file_store/files/faculty_directory.md",
+            "file_type": ".md",
+            "md5": "d76a3dbc409e03dcb7af5c3d7cd50c5d",
+            "rerank_score": 0.8968642001378795
+          }
+        },
+        {
+          "content": "# Cendara University Contact Information\n\nWelcome to Cendara University. If you have questions, need support, or wish to reach a campus department, please use the following contact information.\n\n---\n\n...",
+          "source": "contact_information.md",
+          "metadata": {
+            "source": "contact_information.md",
+            "file_type": ".md",
+            "file_path": "data/knowledge/cendara_university/file_store/files/contact_information.md",
+            "md5": "ba5a69d7cb8e53ddce902dc9c7c707bd",
+            "rerank_score": 0.7805105698840095
+          }
+        },
+        {
+          "content": "---\n\nFor additional information, please contact the Department of Economics at economics@cendara.edu, or consult the full course catalog at [www.cendara.edu/economics/courses](http://www.cendara.edu/e...",
+          "source": "dept_of_Economics_Catalog.md",
+          "metadata": {
+            "source": "dept_of_Economics_Catalog.md",
+            "file_path": "data/knowledge/cendara_university/file_store/files/dept_of_Economics_Catalog.md",
+            "file_type": ".md",
+            "md5": "9032c8b39dc8d7a1a7f17e44a9934aa7",
+            "rerank_score": 0.7567325169552095
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "dept_of_Computer_Science_Catalog.md",
+          "text": "For more information about courses or degree requirements, please contact:\nDepartment of Computer Science \nCendara University \nEmail: cs-advising@cendara.edu \nPhone: +1 (845) 555-7812"
+        }
+      ],
+      "precision": 0.2,
+      "recall": 1.0,
+      "f1_score": 0.33333333333333337,
+      "success": true
+    },
+    {
+      "query": "Why might a customer choose Velvera Plus over standard coverage?",
+      "enterprise": "Velvera Technologies",
+      "query_type": "Analytical",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "velvera_plus.md"
+      ],
+      "retrieved_files": [
+        "velvera_core.md",
+        "velvera_plus.md",
+        "purchasing.md",
+        "warranty_and_service.md"
+      ],
+      "matched_files": [
+        "velvera_plus.md"
+      ],
+      "retrieved_contents": [
+        {
+          "content": "# Velvera Plus — Extended Protection & Accidental Damage Plan\n\n**Velvera Plus** is our premium, optional paid service plan designed to safeguard your Velvera product investment. Extend your warranty, ...",
+          "source": "velvera_plus.md",
+          "metadata": {
+            "file_type": ".md",
+            "source": "velvera_plus.md",
+            "file_path": "data/knowledge/velvera_technologies/file_store/files/velvera_plus.md",
+            "md5": "3d374b5f689145eceeb16b0546d04608",
+            "rerank_score": 0.8116088689919203
+          }
+        },
+        {
+          "content": "> All products registered via the Velvera App within 30 days of purchase get an **extra 3 months warranty**.\n\n**What’s Covered**:\n- Hardware defects not caused by physical or liquid damage\n- Manufactu...",
+          "source": "warranty_and_service.md",
+          "metadata": {
+            "file_type": ".md",
+            "source": "warranty_and_service.md",
+            "file_path": "data/knowledge/velvera_technologies/file_store/files/warranty_and_service.md",
+            "md5": "6744d8b9e57d99ca4d2b2501154e2d94",
+            "rerank_score": 0.7885760406399522
+          }
+        },
+        {
+          "content": "---\n\n## Contact Velvera Plus\n\n- **Coverage Queries & Claims:** plus.support@velvera.com  \n- **Sales & Enrollment:** plus@velvera.com  \n- **Live Chat:** Velvera.com/support\n\nFull plan terms, exclusions...",
+          "source": "velvera_plus.md",
+          "metadata": {
+            "file_path": "data/knowledge/velvera_technologies/file_store/files/velvera_plus.md",
+            "file_type": ".md",
+            "md5": "9610ebbc64b0533bb7967656ec6fa1c9",
+            "source": "velvera_plus.md",
+            "rerank_score": 0.6639972086001814
+          }
+        },
+        {
+          "content": "---\n\n### Velvera Core Plus Series\n\n#### Velvera Core Plus 256GB",
+          "source": "velvera_core.md",
+          "metadata": {
+            "source": "velvera_core.md",
+            "file_path": "data/knowledge/velvera_technologies/file_store/files/velvera_core.md",
+            "file_type": ".md",
+            "md5": "a3333d55023cdba77552ab005458df27",
+            "rerank_score": 0.5303932996879066
+          }
+        },
+        {
+          "content": "##  Availability & Purchase Options\n\nVelvera devices are accessible through a wide network of online and offline channels, supported by a variety of financing, exchange, and promotional programs to su...",
+          "source": "purchasing.md",
+          "metadata": {
+            "file_path": "data/knowledge/velvera_technologies/file_store/files/purchasing.md",
+            "file_type": ".md",
+            "md5": "919f473d5ea750366cb7e650c0ea2445",
+            "source": "purchasing.md",
+            "rerank_score": 0.5147131986728863
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "velvera_plus.md",
+          "text": "Velvera Plus offers several advantages over standard coverage, including extended warranty up to 3 years, accidental damage protection, priority support, international service assistance, express replacement service, and free shipping for repairs. These benefits provide enhanced protection and convenience, ensuring peace of mind for customers."
+        }
+      ],
+      "precision": 0.25,
+      "recall": 1.0,
+      "f1_score": 0.4,
+      "success": true
+    },
+    {
+      "query": "How do SkyPoints earning rates differ between CloudWay 24 flights and other purchases?",
+      "enterprise": "Cloudway 24",
+      "query_type": "Comparative",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "Co-brand Credit Cards.md"
+      ],
+      "retrieved_files": [
+        "Co-brand Credit Cards.md",
+        "How to Earn SkyPoints.md"
+      ],
+      "matched_files": [
+        "Co-brand Credit Cards.md"
+      ],
+      "retrieved_contents": [
+        {
+          "content": "---\n\n## **SkyPoints Earning Structure**\n\n- **10X SkyPoints**  \n  Earn 10 times the SkyPoints when you book CloudWay 24 flights using your co-brand credit card on [CloudWay24.com](https://CloudWay24.co...",
+          "source": "Co-brand Credit Cards.md",
+          "metadata": {
+            "md5": "14d4afa91348d84f5971ea3338ab0c61",
+            "source": "Co-brand Credit Cards.md",
+            "file_path": "data/knowledge/cloudway_24/file_store/files/Co-brand Credit Cards.md",
+            "file_type": ".md",
+            "rerank_score": 0.9049787900056997
+          }
+        },
+        {
+          "content": "### 1. **Flight Bookings**\n\n- **Earn SkyPoints 24 every time you fly with CloudWay 24:**\n    - Points are credited based on *distance flown*, *class of travel*, and *SkyPoints 24 tier*.\n    - All cabi...",
+          "source": "How to Earn SkyPoints.md",
+          "metadata": {
+            "file_type": ".md",
+            "file_path": "data/knowledge/cloudway_24/file_store/files/How to Earn SkyPoints.md",
+            "md5": "387a2371c084fe5ed2b3c652448e73e8",
+            "source": "How to Earn SkyPoints.md",
+            "rerank_score": 0.7500558441591649
+          }
+        },
+        {
+          "content": "---\n\n## **How to Apply?**\n\n1. Visit [CloudWay24.com](https://CloudWay24.com) or your preferred bank website.\n2. Choose the \"CloudWay 24 Co-brand Credit Card.\"\n3. Fill in the application form and provi...",
+          "source": "Co-brand Credit Cards.md",
+          "metadata": {
+            "md5": "d3c80728aa1336ac4353c5192e71bed0",
+            "source": "Co-brand Credit Cards.md",
+            "file_path": "data/knowledge/cloudway_24/file_store/files/Co-brand Credit Cards.md",
+            "file_type": ".md",
+            "rerank_score": 0.7222182465831829
+          }
+        },
+        {
+          "content": "# How to Earn SkyPoints 24 with CloudWay 24\n\nSkyPoints 24 is CloudWay 24’s exclusive frequent flyer program, designed to reward loyal travelers with points on every journey and offer exclusive benefit...",
+          "source": "How to Earn SkyPoints.md",
+          "metadata": {
+            "source": "How to Earn SkyPoints.md",
+            "file_type": ".md",
+            "md5": "589e0c1137af808d090e7c7e69629cc8",
+            "file_path": "data/knowledge/cloudway_24/file_store/files/How to Earn SkyPoints.md",
+            "rerank_score": 0.6617720153581952
+          }
+        },
+        {
+          "content": "---\n\n### 3. **Partner Flights**\n\n- **Earn SkyPoints 24 on partner airline flights:**\n    - Book with CloudWay 24’s code-share and alliance partners using your SkyPoints 24 membership number.\n    - Poi...",
+          "source": "How to Earn SkyPoints.md",
+          "metadata": {
+            "file_type": ".md",
+            "file_path": "data/knowledge/cloudway_24/file_store/files/How to Earn SkyPoints.md",
+            "md5": "01b068ce7b259829e71dfe1ea98fcf3f",
+            "source": "How to Earn SkyPoints.md",
+            "rerank_score": 0.6327543878668569
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "Co-brand Credit Cards.md",
+          "text": "Earn 10 times the SkyPoints when you book CloudWay 24 flights using your co-brand credit card on [CloudWay24.com](https://CloudWay24.com) or our official app."
+        },
+        {
+          "filename": "Co-brand Credit Cards.md",
+          "text": "Earn 4% back in SkyPoints on spending for other airlines and hotel bookings, worldwide."
+        },
+        {
+          "filename": "Co-brand Credit Cards.md",
+          "text": "Earn 2% back in SkyPoints on all other spends—retail, dining, shopping, utilities, and more."
+        }
+      ],
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1_score": 0.6666666666666666,
+      "success": true
+    },
+    {
+      "query": "What services does the PRM Assistant provide?",
+      "enterprise": "ZX Bank",
+      "query_type": "Open-Ended",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "Personal Relationship Manager Assistant Program.md"
+      ],
+      "retrieved_files": [
+        "Personal Relationship Manager Assistant Program.md"
+      ],
+      "matched_files": [
+        "Personal Relationship Manager Assistant Program.md"
+      ],
+      "retrieved_contents": [
+        {
+          "content": "| Service                        | How PRM Assistant Supports You                         |\n|---------------------------------|--------------------------------------------------------|\n| Account Inqui...",
+          "source": "Personal Relationship Manager Assistant Program.md",
+          "metadata": {
+            "md5": "bef796b2b721f00b27ce38e37e97ed5b",
+            "file_path": "data/knowledge/zx_bank/file_store/files/Personal Relationship Manager Assistant Program.md",
+            "file_type": ".md",
+            "source": "Personal Relationship Manager Assistant Program.md",
+            "rerank_score": 0.9264704884833903
+          }
+        },
+        {
+          "content": "---\n\n## What is the PRM Assistant Program?\n\nThe Personal Relationship Manager Assistant Program connects you with a **dedicated relationship manager**—a friendly banking expert who understands your un...",
+          "source": "Personal Relationship Manager Assistant Program.md",
+          "metadata": {
+            "file_type": ".md",
+            "source": "Personal Relationship Manager Assistant Program.md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/Personal Relationship Manager Assistant Program.md",
+            "md5": "34a5d21874216c382df2f88c4a8f498b",
+            "rerank_score": 0.9240154206311786
+          }
+        },
+        {
+          "content": "# ZX Bank – Personal Relationship Manager Assistant Program\n\nWelcome to the **Personal Relationship Manager (PRM) Assistant Program**, an exclusive service designed for all ZX Bank account holders. Ou...",
+          "source": "Personal Relationship Manager Assistant Program.md",
+          "metadata": {
+            "file_type": ".md",
+            "md5": "b7d0200bad57950954eb48dc92e2ca1d",
+            "source": "Personal Relationship Manager Assistant Program.md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/Personal Relationship Manager Assistant Program.md",
+            "rerank_score": 0.8982764881189993
+          }
+        },
+        {
+          "content": "---\n\n## Why Choose the PRM Assistant Program?\n\n- **Personalized attention:** A truly customer-centric service experience.\n- **Time-saving:** Let your PRM handle the details while you focus on what mat...",
+          "source": "Personal Relationship Manager Assistant Program.md",
+          "metadata": {
+            "md5": "d67da1914ca2a80f152433be561bb9e3",
+            "file_type": ".md",
+            "file_path": "data/knowledge/zx_bank/file_store/files/Personal Relationship Manager Assistant Program.md",
+            "source": "Personal Relationship Manager Assistant Program.md",
+            "rerank_score": 0.7790097485018375
+          }
+        },
+        {
+          "content": "---\n\n## Who Can Use the PRM Assistant?\n\n**All ZX Bank account holders**, regardless of account type, automatically get access to a Personal Relationship Manager Assistant at no extra charge.\n\n---\n\n## ...",
+          "source": "Personal Relationship Manager Assistant Program.md",
+          "metadata": {
+            "file_path": "data/knowledge/zx_bank/file_store/files/Personal Relationship Manager Assistant Program.md",
+            "md5": "ce5227428a0d77857542a6fd8f5d8620",
+            "source": "Personal Relationship Manager Assistant Program.md",
+            "file_type": ".md",
+            "rerank_score": 0.7424279983780516
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "Personal Relationship Manager Assistant Program.md",
+          "text": "The PRM Assistant supports account inquiries, digital banking guidance, loan and credit advisory, wealth and investment concierge services, remittance and NRI services, and expedites issue resolution of service or transaction issues."
+        }
+      ],
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "success": true
+    },
+    {
+      "query": "Why might CloudWay 24 choose to operate non-stop flights to Nairobi?",
+      "enterprise": "Cloudway 24",
+      "query_type": "Analytical",
+      "search_mode": "hybrid",
+      "top_k": 5,
+      "expected_files": [
+        "Mumbai Inbound & Outbound Flights.md"
+      ],
+      "retrieved_files": [
+        "Staff Accommodation Policy.md",
+        "Boeing 787 Dreamliner.md",
+        "Airbus A350.md",
+        "CloudWay 24 – Passenger Rights.md",
+        "ravelling with Pets.md"
+      ],
+      "matched_files": [],
+      "retrieved_contents": [
+        {
+          "content": "---\n\n**CloudWay 24 is dedicated to upholding your rights and ensuring a seamless, fair, and enjoyable travel experience.**",
+          "source": "CloudWay 24 – Passenger Rights.md",
+          "metadata": {
+            "file_type": ".md",
+            "file_path": "data/knowledge/cloudway_24/file_store/files/CloudWay 24 – Passenger Rights.md",
+            "source": "CloudWay 24 – Passenger Rights.md",
+            "md5": "54e1085950a9d3b31c2f871cd3f11103",
+            "rerank_score": 0.5782856804396017
+          }
+        },
+        {
+          "content": "---\n\n## Additional Features (All Cabins)\n- **Advanced air filtration system (HEPA)**\n- **High ceilings and larger windows for natural lighting**\n- **Customizable mood lighting for reduced jet-lag**\n- ...",
+          "source": "Airbus A350.md",
+          "metadata": {
+            "file_path": "data/knowledge/cloudway_24/file_store/files/Airbus A350.md",
+            "source": "Airbus A350.md",
+            "file_type": ".md",
+            "md5": "3f3f006ab0fc1b0460ef32b5f3ca91f9",
+            "rerank_score": 0.5610600404250489
+          }
+        },
+        {
+          "content": "---\n\n## General Policy\n\n- **Eligible Pets:** Cats and small dogs (domesticated), in good health and at least 3 months old.\n- **Allowed Routes:** Pets are permitted only on international flights operat...",
+          "source": "ravelling with Pets.md",
+          "metadata": {
+            "source": "ravelling with Pets.md",
+            "file_path": "data/knowledge/cloudway_24/file_store/files/ravelling with Pets.md",
+            "file_type": ".md",
+            "md5": "900665de3593a4b5444badcc1e433abf",
+            "rerank_score": 0.5298614544053449
+          }
+        },
+        {
+          "content": "---\n\n## Additional Onboard Features\n\n- High-speed Wi-Fi connectivity (paid and complimentary plans by class)\n- USB and universal power outlets in all cabins\n- Mood lighting and improved cabin air qual...",
+          "source": "Boeing 787 Dreamliner.md",
+          "metadata": {
+            "source": "Boeing 787 Dreamliner.md",
+            "file_path": "data/knowledge/cloudway_24/file_store/files/Boeing 787 Dreamliner.md",
+            "md5": "352fa1e97c842a7499e01754cd657885",
+            "file_type": ".md",
+            "rerank_score": 0.47922490877283586
+          }
+        },
+        {
+          "content": "# CloudWay 24 – Staff Accommodation Policy: Pilots & Cabin Crew\n\n## Overview\nCloudWay 24 prioritizes the comfort and well-being of its onboard crew, recognizing that adequate rest is critical for safe...",
+          "source": "Staff Accommodation Policy.md",
+          "metadata": {
+            "md5": "387358b1e6050164a842c2d3fb064e66",
+            "file_path": "data/knowledge/cloudway_24/file_store/files/Staff Accommodation Policy.md",
+            "source": "Staff Accommodation Policy.md",
+            "file_type": ".md",
+            "rerank_score": 0.4754543115409707
+          }
+        }
+      ],
+      "supporting_facts": [
+        {
+          "filename": "Mumbai Inbound & Outbound Flights.md",
+          "text": "CloudWay 24 offers premium non-stop services to Nairobi. The choice of non-stop flights minimizes travel time and maximizes convenience for passengers."
+        },
+        {
+          "filename": "Mumbai Inbound & Outbound Flights.md",
+          "text": "| Nairobi (NBO) | 01:25 | 05:45 | Airbus A350 | Non-stop | 6h 50m |"
+        }
+      ],
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1_score": 0,
+      "success": true
+    }
+  ]
+}

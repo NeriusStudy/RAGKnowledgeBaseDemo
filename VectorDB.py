@@ -1,6 +1,4 @@
 """
-实现人：
-
 向量数据库（VectorDB）
 基于 LangChain 的 DashScopeEmbeddings + Chroma 实现，
 集成向量化、向量存储、向量检索等功能，嵌入模型在类内配置，上层不感知，
@@ -10,7 +8,7 @@ VectorDB 不再包含内部去重逻辑。
 """
 import config
 from langchain_community.embeddings import DashScopeEmbeddings
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from langchain_core.documents import Document
 
 class VectorDB:
@@ -73,18 +71,60 @@ class VectorDB:
         Returns:
             bool: 是否添加成功
         """
-        pass
+        try:
+            # 检查文档是否包含 md5
+            if 'md5' not in document.metadata:
+                print("错误：文档 metadata 中缺少 md5 字段")
+                return False
 
-    def add_documents(self, document: list[Document]) -> bool:
+            # 使用 md5 作为 Chroma 的 ID
+            md5 = document.metadata['md5']
+
+            # 添加文档到 Chroma，使用 md5 作为唯一 ID
+            self.vector_db.add_documents(
+                documents=[document],
+                ids=[md5]
+            )
+
+            return True
+
+        except Exception as e:
+            print(f"添加文档失败: {str(e)}")
+            return False
+
+    def add_documents(self, documents: list[Document]) -> bool:
         """
         批量添加文档到向量数据库
         Args:
-            document: 待添加的文档，文档内容在document.page_content中，文档存储索引在document.metadata.md5中,
+            documents: 待添加的文档列表，文档内容在document.page_content中，文档存储索引在document.metadata.md5中,
             上层保证传入的文档无重复，使用Chroma存储
         Returns:
             bool: 是否添加成功
         """
-        pass
+        try:
+            if not documents:
+                print("警告：文档列表为空")
+                return True
+
+            # 检查所有文档是否都包含 md5
+            md5_list = []
+            for doc in documents:
+                if 'md5' not in doc.metadata:
+                    print(f"错误：文档 metadata 中缺少 md5 字段")
+                    return False
+                md5_list.append(doc.metadata['md5'])
+
+            # 批量添加文档到 Chroma
+            self.vector_db.add_documents(
+                documents=documents,
+                ids=md5_list
+            )
+
+            return True
+
+        except Exception as e:
+            print(f"批量添加文档失败: {str(e)}")
+            return False
 
     def delete_document(self, md5: str) -> bool:
         """
@@ -94,17 +134,35 @@ class VectorDB:
         Returns:
             bool: 是否删除成功
         """
-        pass
+        try:
+            # Chroma 使用 md5 作为 ID，直接通过 ID 删除
+            self.vector_db.delete(ids=[md5])
+            return True
 
-    def delete_documents(self, md5: list[str]) -> bool:
+        except Exception as e:
+            print(f"删除文档失败 (md5={md5}): {str(e)}")
+            return False
+
+    def delete_documents(self, md5_list: list[str]) -> bool:
         """
         批量删除文档
         Args:
-            md5: 文档的md5值，用于唯一标识文档
+            md5_list: 文档的md5值列表，用于唯一标识文档
         Returns:
             bool: 是否删除成功
         """
-        pass
+        try:
+            if not md5_list:
+                print("警告：md5列表为空")
+                return True
+
+            # 批量删除文档
+            self.vector_db.delete(ids=md5_list)
+            return True
+
+        except Exception as e:
+            print(f"批量删除文档失败: {str(e)}")
+            return False
 
     def search(self, query: str, k: int = config.VECTOR_SEARCH_DEFAULT_K) -> list[Document]:
         """
@@ -113,12 +171,72 @@ class VectorDB:
             query: 搜索查询的字符串
             k: （可选）返回的文档数量，默认值为 config.VECTOR_SEARCH_DEFAULT_K
         Returns:
-            list[Document]: 搜索到的文档列表，失败返回None
+            list[Document]: 搜索到的文档列表，失败返回空列表
         """
-        pass
+        try:
+            # 使用 Chroma 的相似度搜索
+            results = self.vector_db.similarity_search(
+                query=query,
+                k=k
+            )
+            return results
+
+        except Exception as e:
+            print(f"向量检索失败: {str(e)}")
+            return []
 
     def delete_me(self):
         """
         删除当前向量数据库，包括所有的持久化存储文件
         """
-        pass
+        try:
+            import shutil
+            import gc
+            from pathlib import Path
+
+            # 关闭 Chroma 客户端（如果有的话）
+            if hasattr(self.vector_db, '_client'):
+                try:
+                    # 尝试关闭 Chroma 客户端
+                    if hasattr(self.vector_db._client, 'clear_system_cache'):
+                        self.vector_db._client.clear_system_cache()
+                except:
+                    pass
+
+            # 删除数据库对象，释放文件句柄
+            self.vector_db = None
+            self.embedding_mode = None
+
+            # 强制垃圾回收，释放资源
+            gc.collect()
+
+            # 短暂延迟，确保文件句柄释放
+            import time
+            time.sleep(1.0)  # 增加延迟时间
+
+            # 删除 Chroma 持久化存储目录
+            db_path = Path(self.vector_db_store_path)
+            if db_path.exists():
+                # Windows 下可能需要多次尝试
+                max_retries = 3
+                for i in range(max_retries):
+                    try:
+                        shutil.rmtree(db_path)
+                        print(f"成功删除向量数据库: {self.vector_db_store_path}")
+                        break
+                    except (PermissionError, OSError) as e:
+                        if i < max_retries - 1:
+                            print(f"删除失败，1秒后重试... ({i+1}/{max_retries})")
+                            time.sleep(1)
+                            gc.collect()
+                        else:
+                            print(f"删除向量数据库失败（文件被占用）: {self.vector_db_store_path}")
+                            print("提示：请手动删除该目录，或稍后删除")
+                            # 不抛出异常，允许程序继续执行
+            else:
+                print(f"向量数据库目录不存在: {self.vector_db_store_path}")
+
+        except Exception as e:
+            print(f"删除向量数据库时出错: {str(e)}")
+            print("提示：可以忽略此错误，稍后手动删除测试目录")
+            # 不抛出异常，允许测试继续
