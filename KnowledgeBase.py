@@ -3,6 +3,7 @@
 
 知识库类
 """
+import os
 import config
 from FileStore import FileStore
 from RAGService import RAGService
@@ -136,41 +137,68 @@ class KnowledgeBase:
         """
         return self.rag_service.get_rerank_model_name()
 
-    def add_file(self, file) -> bool:
+    def add_file(self, file_path: str, file_name: str = None) -> bool:
         """
-        添加文件到文件存储
+        添加文件到知识库
+        流程：FileStore 存储文件 -> 切分为 Document -> RAGService 存储到向量库和关键词库
         Args:
-            file: 待添加的文件
+            file_path: 待添加的文件路径
+            file_name: 文件名称（可选，默认使用文件路径中的文件名）
         Returns:
             bool: 是否添加成功
         """
-        # 保存文件到文件存储，获取切分后的文档列表
-        documents = self.file_store.save_file(file)
-        if not documents:
-            return False
-        # 将文档添加到 RAG 服务（向量库和关键词库）
-        return self.rag_service.add_documents(documents)
+        try:
+            # 1. FileStore 保存文件并切分为 Document
+            split_docs = self.file_store.save_file(file_path, file_name)
 
-    def add_files(self, files) -> bool:
-        """
-        批量添加文件到文件存储
-        Args:
-            files: 待添加的文件列表
-        Returns:
-            bool: 是否添加成功
-        """
-        for file in files:
-            if not self.add_file(file):
+            if not split_docs:
+                print(f"[KnowledgeBase] 文件保存失败或被去重: {file_name or file_path}")
                 return False
-        return True
 
-    def get_file(self, file_name: str):
+            # 2. 将切分后的文档添加到 RAGService
+            success = self.rag_service.add_documents(split_docs)
+
+            if not success:
+                # 如果 RAG 存储失败，需要回滚 FileStore 的操作
+                actual_file_name = file_name or os.path.basename(file_path)
+                self.file_store.delete_file(actual_file_name)
+                print(f"[KnowledgeBase] RAG 存储失败，已回滚文件存储: {actual_file_name}")
+                return False
+
+            print(f"[KnowledgeBase] 文件添加成功: {file_name or file_path}, {len(split_docs)} 个文档")
+            return True
+
+        except Exception as e:
+            print(f"[KnowledgeBase] 文件添加失败: {e}")
+            return False
+
+    def add_files(self, file_paths: List[str]) -> bool:
         """
-        获取文件存储中的文件
+        批量添加文件到知识库
+        Args:
+            file_paths: 待添加的文件路径列表
+        Returns:
+            bool: 是否全部添加成功
+        """
+        success_count = 0
+        fail_count = 0
+
+        for file_path in file_paths:
+            if self.add_file(file_path):
+                success_count += 1
+            else:
+                fail_count += 1
+
+        print(f"[KnowledgeBase] 批量添加完成: 成功 {success_count}, 失败 {fail_count}")
+        return fail_count == 0
+
+    def get_file(self, file_name: str) -> str:
+        """
+        获取文件存储中的文件路径
         Args:
             file_name: 文件名称
         Returns:
-            !!!!!!!!!!!!!!!! todo:文件类型处理在FileStore类中实现
+            str: 文件的完整路径，如果文件不存在则返回 None
         """
         return self.file_store.get_file(file_name)
 
@@ -182,22 +210,50 @@ class KnowledgeBase:
         """
         return self.file_store.get_all_file_name()
 
+    def get_file_documents(self, file_name: str) -> List[Document]:
+        """
+        根据文件名获取该文件切分后的所有文档
+        Args:
+            file_name: 文件名称
+        Returns:
+            List[Document]: 该文件切分后的文档列表
+        """
+        return self.file_store.get_documents_by_file(file_name)
+
     def delete_file(self, file_name: str) -> bool:
         """
-        删除文件存储中的文件
+        删除文件及其关联的所有文档
+        流程：获取文档 MD5 列表 -> RAGService 删除文档 -> FileStore 删除文件
         Args:
             file_name: 文件名称
         Returns:
             bool: 是否删除成功
         """
-        # 从文件存储中删除文件，获取被删除文档的 md5 列表
-        md5_list = self.file_store.delete_file(file_name)
-        if md5_list is None:
+        try:
+            # 1. 获取文件对应的文档 MD5 列表
+            md5_list = self.file_store.get_file_md5s(file_name)
+
+            if not md5_list:
+                print(f"[KnowledgeBase] 文件不存在或无关联文档: {file_name}")
+                return False
+
+            # 2. 从 RAGService 删除所有文档
+            for md5 in md5_list:
+                self.rag_service.delete_document(md5)
+
+            # 3. 从 FileStore 删除文件
+            success = self.file_store.delete_file(file_name)
+
+            if success:
+                print(f"[KnowledgeBase] 文件删除成功: {file_name}, 删除了 {len(md5_list)} 个文档")
+            else:
+                print(f"[KnowledgeBase] 文件删除失败: {file_name}")
+
+            return success
+
+        except Exception as e:
+            print(f"[KnowledgeBase] 文件删除失败: {e}")
             return False
-        # 从 RAG 服务中删除对应的文档
-        if md5_list:
-            self.rag_service.delete_documents(md5_list)
-        return True
 
     def search(self, query: str, mod: str = "hybrid", k: int = config.RAG_SEARCH_DEFAULT_K,
                vector_weight: float = 0.5,
@@ -213,15 +269,37 @@ class KnowledgeBase:
         Returns:
             list[Document]: 检索得到的文档
         """
-        return self.rag_service.search(
-            query=query, mod=mod, k=k,
-            vector_weight=vector_weight,
-            keyword_weight=keyword_weight,
-        )
+        return self.rag_service.search(query, mod, k, vector_weight, keyword_weight)
+
+    def search_as_strings(self, query: str, mod: str = "hybrid", k: int = config.RAG_SEARCH_DEFAULT_K,
+                          vector_weight: float = 0.5,
+                          keyword_weight: float = 0.5) -> List[str]:
+        """
+        检索并返回字符串列表
+        Args:
+            query: 检索的问题
+            mod: 模型类型，vector、keyword、hybrid，默认hybrid
+            k: 返回的文档数量，默认config.RAG_SEARCH_DEFAULT_K
+            vector_weight: 向量权重，默认0.5
+            keyword_weight: 关键词权重，默认0.5
+        Returns:
+            List[str]: 检索得到的文档内容字符串列表
+        """
+        docs = self.search(query, mod, k, vector_weight, keyword_weight)
+        return [doc.page_content for doc in docs]
 
     def delete_me(self):
         """
-        删除所有持久化存储
+        删除知识库的所有持久化存储
         """
-        self.file_store.delete_me()
-        self.rag_service.delete_me()
+        import shutil
+        import os
+
+        try:
+            if os.path.exists(self.knowledgebase_store_path):
+                shutil.rmtree(self.knowledgebase_store_path)
+                print(f"[KnowledgeBase] 知识库已删除: {self.name}")
+            else:
+                print(f"[KnowledgeBase] 知识库路径不存在: {self.knowledgebase_store_path}")
+        except Exception as e:
+            print(f"[KnowledgeBase] 删除知识库失败: {e}")
