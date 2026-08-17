@@ -1,6 +1,4 @@
 """
-实现人：
-
 知识库类
 """
 import os
@@ -152,7 +150,7 @@ class KnowledgeBase:
             split_docs = self.file_store.save_file(file_path, file_name)
 
             if not split_docs:
-                print(f"[KnowledgeBase] 文件保存失败或被去重: {file_name or file_path}")
+                print(f"错误[KnowledgeBase.add_file] 文件保存失败或被去重: {file_name or file_path}")
                 return False
 
             # 2. 将切分后的文档添加到 RAGService
@@ -162,14 +160,14 @@ class KnowledgeBase:
                 # 如果 RAG 存储失败，需要回滚 FileStore 的操作
                 actual_file_name = file_name or os.path.basename(file_path)
                 self.file_store.delete_file(actual_file_name)
-                print(f"[KnowledgeBase] RAG 存储失败，已回滚文件存储: {actual_file_name}")
+                print(f"错误[KnowledgeBase.add_file] RAG 存储失败，已回滚文件存储: {actual_file_name}")
                 return False
 
-            print(f"[KnowledgeBase] 文件添加成功: {file_name or file_path}, {len(split_docs)} 个文档")
+            print(f"信息[KnowledgeBase.add_file] 文件添加成功: {file_name or file_path}, {len(split_docs)} 个文档")
             return True
 
         except Exception as e:
-            print(f"[KnowledgeBase] 文件添加失败: {e}")
+            print(f"错误[KnowledgeBase.add_file] 文件添加失败: {e}")
             return False
 
     def add_files(self, file_paths: List[str]) -> bool:
@@ -189,7 +187,7 @@ class KnowledgeBase:
             else:
                 fail_count += 1
 
-        print(f"[KnowledgeBase] 批量添加完成: 成功 {success_count}, 失败 {fail_count}")
+        print(f"信息[KnowledgeBase.add_files] 批量添加完成: 成功 {success_count}, 失败 {fail_count}")
         return fail_count == 0
 
     def get_file(self, file_name: str) -> str:
@@ -234,7 +232,7 @@ class KnowledgeBase:
             md5_list = self.file_store.get_file_md5s(file_name)
 
             if not md5_list:
-                print(f"[KnowledgeBase] 文件不存在或无关联文档: {file_name}")
+                print(f"错误[KnowledgeBase.delete_file] 文件不存在或无关联文档: {file_name}")
                 return False
 
             # 2. 从 RAGService 删除所有文档
@@ -245,14 +243,14 @@ class KnowledgeBase:
             success = self.file_store.delete_file(file_name)
 
             if success:
-                print(f"[KnowledgeBase] 文件删除成功: {file_name}, 删除了 {len(md5_list)} 个文档")
+                print(f"信息[KnowledgeBase.delete_file] 文件删除成功: {file_name}, 删除了 {len(md5_list)} 个文档")
             else:
-                print(f"[KnowledgeBase] 文件删除失败: {file_name}")
+                print(f"错误[KnowledgeBase.delete_file] 文件删除失败: {file_name}")
 
             return success
 
         except Exception as e:
-            print(f"[KnowledgeBase] 文件删除失败: {e}")
+            print(f"错误[KnowledegeBase.delete_file] 文件删除失败: {e}")
             return False
 
     def search(self, query: str, mod: str = "hybrid", k: int = config.RAG_SEARCH_DEFAULT_K,
@@ -298,8 +296,8 @@ class KnowledgeBase:
         try:
             if os.path.exists(self.knowledgebase_store_path):
                 shutil.rmtree(self.knowledgebase_store_path)
-                print(f"[KnowledgeBase] 知识库已删除: {self.name}")
+                print(f"信息[KnowledgeBase.delete_me] 知识库已删除: {self.name}")
             else:
-                print(f"[KnowledgeBase] 知识库路径不存在: {self.knowledgebase_store_path}")
+                print(f"错误[KnowledgeBase.delete_me] 知识库路径不存在: {self.knowledgebase_store_path}")
         except Exception as e:
-            print(f"[KnowledgeBase] 删除知识库失败: {e}")
+            print(f"错误[KnowledgeBase.delete_me] 删除知识库失败: {e}")

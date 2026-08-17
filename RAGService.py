@@ -1,6 +1,4 @@
 """
-实现人：
-
 RAG 服务（RAGService）
 基于 LangChain 的检索增强生成服务封装，
 整合 VectorDB、KeywordDB、Reranker 三大组件，

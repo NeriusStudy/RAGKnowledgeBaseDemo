@@ -1,6 +1,4 @@
 """
-实现人：
-
 文档切分器（Splitter）
 基于 LangChain 的 RecursiveCharacterTextSplitter 封装，
 提供对文本或 Document 对象的切分能力，支持自定义分块大小、

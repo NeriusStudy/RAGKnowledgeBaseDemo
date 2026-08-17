@@ -1,6 +1,4 @@
 """
-实现人：
-
 重排序器（Reranker）
 直接使用 DashScope SDK 实现，
 用于在混合检索（Hybrid Search）场景中对召回的文档进行重排序，
