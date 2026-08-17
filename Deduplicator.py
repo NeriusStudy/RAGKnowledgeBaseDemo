@@ -1,6 +1,4 @@
 """
-实现人：
-
 去重器（Deduplicator）
 对文件标题内容进行 MD5 去重，
 避免重复文本被重复写入数据库。
@@ -26,7 +24,17 @@ class Deduplicator:
         Returns:
             包含所有已存储 MD5 的集合
         """
-        pass
+        md5_set = set()
+        if os.path.exists(self.md5_store_path):
+            try:
+                with open(self.md5_store_path, "r", encoding="utf-8") as f:
+                    for line in f:
+                        line = line.strip()
+                        if line:
+                            md5_set.add(line)
+            except Exception as e:
+                print(f"错误[Deduplicator._load_md5_set] 读取 MD5 文件失败: {e}")
+        return md5_set
 
     @staticmethod
     def str_to_md5(text: str) -> Optional[str]:
@@ -37,7 +45,11 @@ class Deduplicator:
         Returns:
             MD5 格式的字符串（32位十六进制），失败时返回 None
         """
-        pass
+        try:
+            return hashlib.md5(text.encode("utf-8")).hexdigest()
+        except Exception as e:
+            print(f"错误[Deduplicator.str_to_md5] 字符串转 MD5 失败: {e}")
+            return None
 
     def check_if_deduplicate_md5(self, md5: str) -> bool:
         """
@@ -47,7 +59,7 @@ class Deduplicator:
         Returns:
             如果 MD5 已存在返回 True，否则返回 False
         """
-        pass
+        return md5 in self._load_md5_set()
 
     def check_if_deduplicate_str(self, text: str) -> bool:
         """
@@ -57,7 +69,10 @@ class Deduplicator:
         Returns:
             如果字符串对应的 MD5 已存在返回 True，否则返回 False
         """
-        pass
+        md5 = self.str_to_md5(text)
+        if md5 is None:
+            return False
+        return self.check_if_deduplicate_md5(md5)
 
     def save_md5(self, md5: str) -> bool:
         """
@@ -68,7 +83,18 @@ class Deduplicator:
             成功返回 True，失败返回 False 并输出错误信息
             如果 MD5 已存在，返回 True 并输出提示
         """
-        pass
+        if self.check_if_deduplicate_md5(md5):
+            print(f"警告[Deduplicator.save_md5] MD5 {md5} 已存在，跳过存储")
+            return True
+
+        try:
+            os.makedirs(os.path.dirname(self.md5_store_path), exist_ok=True)
+            with open(self.md5_store_path, "a", encoding="utf-8") as f:
+                f.write(md5 + "\n")
+            return True
+        except Exception as e:
+            print(f"错误[Deduplicator.save_md5] 保存 MD5 失败: {e}")
+            return False
 
     def save_str(self, text: str) -> bool:
         """
@@ -79,7 +105,10 @@ class Deduplicator:
         Returns:
             成功存入或已存在返回 True，失败返回 False
         """
-        pass
+        md5 = self.str_to_md5(text)
+        if md5 is None:
+            return False
+        return self.save_md5(md5)
 
     def delete_md5(self, md5: str) -> bool:
         """
@@ -90,7 +119,21 @@ class Deduplicator:
             成功删除返回 True；如果文件中不存在该 MD5 返回 True 并输出提示；
             其他失败情况返回 False
         """
-        pass
+        md5_set = self._load_md5_set()
+        if md5 not in md5_set:
+            print(f"警告[Deduplicator.delete_md5] MD5 {md5} 不存在，无需删除")
+            return True
+
+        md5_set.discard(md5)
+        try:
+            os.makedirs(os.path.dirname(self.md5_store_path), exist_ok=True)
+            with open(self.md5_store_path, "w", encoding="utf-8") as f:
+                for m in md5_set:
+                    f.write(m + "\n")
+            return True
+        except Exception as e:
+            print(f"错误[Deduplicator.delete_md5] 删除 MD5 失败: {e}")
+            return False
 
     def delete_str(self, text: str) -> bool:
         """
@@ -100,7 +143,10 @@ class Deduplicator:
         Returns:
             成功返回 True，失败返回 False
         """
-        pass
+        md5 = self.str_to_md5(text)
+        if md5 is None:
+            return False
+        return self.delete_md5(md5)
 
     # ========== Document 级别方法 ==========
 
@@ -114,7 +160,7 @@ class Deduplicator:
         Returns:
             MD5 格式的字符串，失败返回 None
         """
-        pass
+        return Deduplicator.str_to_md5(document.page_content)
 
     def check_if_deduplicate_document(self, document: Document) -> bool:
         """
@@ -124,7 +170,10 @@ class Deduplicator:
         Returns:
             已存在返回 True，否则返回 False
         """
-        pass
+        md5 = self.document_to_md5(document)
+        if md5 is None:
+            return False
+        return self.check_if_deduplicate_md5(md5)
 
     def save_document(self, document: Document) -> bool:
         """
@@ -136,7 +185,10 @@ class Deduplicator:
         Returns:
             成功（或已存在）返回 True，失败返回 False
         """
-        pass
+        md5 = self.document_to_md5(document)
+        if md5 is None:
+            return False
+        return self.save_md5(md5)
 
     def delete_document(self, document: Document) -> bool:
         """
@@ -146,4 +198,7 @@ class Deduplicator:
         Returns:
             成功返回 True，失败返回 False
         """
-        pass
+        md5 = self.document_to_md5(document)
+        if md5 is None:
+            return False
+        return self.delete_md5(md5)
