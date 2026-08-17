@@ -82,9 +82,15 @@ class Splitter:
             切分后的文本块列表（List[str]）
         """
         if not text:
-            print("split_text: text is empty")
+            print("警告[Splitter.split_text]：文本为空")
             return []
-        return self._splitter.split_text(text)
+
+        try:
+            split_text = self._splitter.split_text(text)
+        except Exception as e:
+            print(f"错误[Splitter.split_text]：切分文本失败: {str(e)}")
+            return []
+        return split_text
 
     def split_document(self, document: Document) -> List[Document]:
         """
@@ -96,17 +102,25 @@ class Splitter:
             切分后的 Document 块列表，每个块保留原始 Document 的 metadata，并添加md5
         """
         if not document.page_content:
-            print("split_document: document.page_content is empty")
+            print("警告[Splitter.split_document]：文档内容为空")
             return []
 
         # 使用 LangChain 的切分器切分文档
-        split_docs = self._splitter.split_documents([document])
+        try:
+            split_docs = self._splitter.split_documents([document])
+        except Exception as e:
+            print(f"错误[Splitter.split_document]：切分文档失败: {str(e)}")
+            return []
 
         # 为每个切分后的文档添加 MD5
-        for doc in split_docs:
-            md5 = Deduplicator.str_to_md5(doc.page_content)
-            if md5:
-                doc.metadata['md5'] = md5
+        try:
+            for doc in split_docs:
+                md5 = Deduplicator.str_to_md5(doc.page_content)
+                if md5:
+                    doc.metadata['md5'] = md5
+        except Exception as e:
+            print(f"错误[Splitter.split_document]：计算文档 md5 失败: {str(e)}")
+            return []
 
         return split_docs
 
@@ -119,13 +133,15 @@ class Splitter:
             切分后的 Document 块列表，每个块保留对应原始 Document 的 metadata
         """
         if not documents:
-            print("split_documents: documents is empty")
+            print("警告[Splitter.split_documents]：文档列表为空")
             return []
 
-        all_split_docs = []
-
-        for document in documents:
-            split_docs = self.split_document(document)
-            all_split_docs.extend(split_docs)
-
+        try:
+            all_split_docs = []
+            for document in documents:
+                split_docs = self.split_document(document)
+                all_split_docs.extend(split_docs)
+        except Exception as e:
+            print(f"错误[Splitter.split_documents]：切分文档失败: {str(e)}")
+            return []
         return all_split_docs
