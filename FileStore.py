@@ -379,5 +379,90 @@ class FileStore:
 
     def delete_me(self):
         """
-        删除所有持久化存储
+        删除所有持久化存储，清理文件、文档、MD5、映射数据
         """
+        import gc
+        import time
+        from pathlib import Path
+
+        try:
+            # 1. 删除文件存储目录
+            self._delete_path(self.file_store_path, "文件存储目录")
+
+            # 2. 删除文档存储目录
+            self._delete_path(self.document_store_path, "文档存储目录")
+
+            # 3. 删除 MD5 存储文件
+            self._delete_file(self.md5_store_path, "MD5存储文件")
+
+            # 4. 删除文件-文档映射文件
+            self._delete_file(self.file_document_map_store_path, "文件-文档映射文件")
+
+            # 5. 清理内部状态
+            self.file_document_map.clear()
+            self.splitter = None
+            self.deduplicator = None
+
+            gc.collect()
+            print("信息[FileStore.delete_me]：FileStore 所有数据已清理")
+
+        except Exception as e:
+            print(f"错误[FileStore.delete_me]：删除持久化存储时出错: {str(e)}")
+
+    @staticmethod
+    def _delete_path(path: str, description: str):
+        """
+        删除目录，支持 Windows 文件锁定重试
+        """
+        import gc
+        import time
+        from pathlib import Path
+
+        target = Path(path)
+        if not target.exists():
+            print(f"警告[FileStore._delete_path]：{description}不存在: {path}")
+            return
+
+        max_retries = 3
+        for i in range(max_retries):
+            try:
+                shutil.rmtree(target)
+                print(f"信息[FileStore._delete_path]：成功删除{description}: {path}")
+                return
+            except (PermissionError, OSError) as e:
+                if i < max_retries - 1:
+                    print(f"警告[FileStore._delete_path]：删除{description}失败，1秒后重试... ({i+1}/{max_retries})")
+                    time.sleep(1)
+                    gc.collect()
+                else:
+                    print(f"错误[FileStore._delete_path]：删除{description}失败（文件被占用）: {path}")
+                    print("提示：请手动删除该目录，或稍后删除")
+
+    @staticmethod
+    def _delete_file(path: str, description: str):
+        """
+        删除单个文件，支持 Windows 文件锁定重试
+        """
+        import gc
+        import time
+        from pathlib import Path
+
+        target = Path(path)
+        if not target.exists():
+            print(f"警告[FileStore._delete_file]：{description}不存在: {path}")
+            return
+
+        max_retries = 3
+        for i in range(max_retries):
+            try:
+                target.unlink()
+                print(f"信息[FileStore._delete_file]：成功删除{description}: {path}")
+                return
+            except (PermissionError, OSError) as e:
+                if i < max_retries - 1:
+                    print(f"警告[FileStore._delete_file]：删除{description}失败，1秒后重试... ({i+1}/{max_retries})")
+                    time.sleep(1)
+                    gc.collect()
+                else:
+                    print(f"错误[FileStore._delete_file]：删除{description}失败（文件被占用）: {path}")
+                    print("提示：请手动删除该文件，或稍后删除")

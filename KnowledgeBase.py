@@ -285,26 +285,63 @@ class KnowledgeBase:
     def delete_me(self):
         """
         删除知识库的所有持久化存储
+        流程：FileStore.delete_me() -> RAGService.delete_me() -> 删除根目录保底 -> 清理引用
         """
-        import shutil
+        import gc
 
+        # 1. 清理 FileStore（文件、文档、MD5、映射）
         try:
-            # 先删除 FileStore 和 RAGService 的内部数据
-            try:
-                self.rag_service.delete_me()
-            except Exception as e:
-                print(f"错误[KnowledgeBase.delete_me] 删除 RAG 服务失败: {e}")
-
-            # 删除知识库根目录
-            if os.path.exists(self.knowledgebase_store_path):
-                shutil.rmtree(self.knowledgebase_store_path)
-                print(f"信息[KnowledgeBase.delete_me] 知识库已删除: {self.name}")
-            else:
-                print(f"错误[KnowledgeBase.delete_me] 知识库路径不存在: {self.knowledgebase_store_path}")
+            self.file_store.delete_me()
         except Exception as e:
-            print(f"错误[KnowledgeBase.delete_me] 删除知识库失败: {e}")
+            print(f"错误[KnowledgeBase.delete_me] 清理 FileStore 失败: {e}")
 
-        # 清理对象引用，防止后续调用出错
+        # 2. 清理 RAGService（向量库、关键词库）
+        try:
+            self.rag_service.delete_me()
+        except Exception as e:
+            print(f"错误[KnowledgeBase.delete_me] 清理 RAGService 失败: {e}")
+
+        # 3. 保底：删除知识库根目录，清除所有残留文件
+        try:
+            if os.path.exists(self.knowledgebase_store_path):
+                self._delete_path(self.knowledgebase_store_path, "知识库根目录")
+            else:
+                print(f"警告[KnowledgeBase.delete_me] 知识库路径不存在: {self.knowledgebase_store_path}")
+        except Exception as e:
+            print(f"错误[KnowledgeBase.delete_me] 保底删除根目录失败: {e}")
+
+        # 4. 清理对象引用
         self.file_store = None
         self.rag_service = None
+        gc.collect()
         print("信息[KnowledgeBase.delete_me] KnowledgeBase 对象引用已清理")
+
+    @staticmethod
+    def _delete_path(path: str, description: str):
+        """
+        删除目录，支持 Windows 文件锁定重试
+        """
+        import gc
+        import time
+        from pathlib import Path
+
+        target = Path(path)
+        if not target.exists():
+            print(f"警告[KnowledgeBase._delete_path]：{description}不存在: {path}")
+            return
+
+        max_retries = 3
+        for i in range(max_retries):
+            try:
+                import shutil
+                shutil.rmtree(target)
+                print(f"信息[KnowledgeBase._delete_path]：成功删除{description}: {path}")
+                return
+            except (PermissionError, OSError) as e:
+                if i < max_retries - 1:
+                    print(f"警告[KnowledgeBase._delete_path]：删除{description}失败，1秒后重试... ({i+1}/{max_retries})")
+                    time.sleep(1)
+                    gc.collect()
+                else:
+                    print(f"错误[KnowledgeBase._delete_path]：删除{description}失败（文件被占用）: {path}")
+                    print("提示：请手动删除该目录，或稍后删除")
