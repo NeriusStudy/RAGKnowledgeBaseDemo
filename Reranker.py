@@ -24,7 +24,7 @@ class Reranker:
         # 从环境变量获取 API Key
         api_key = os.getenv("DASHSCOPE_API_KEY")
         if not api_key:
-            print("警告：DASHSCOPE_API_KEY 环境变量未设置")
+            print("警告[Reranker.__init__]：DASHSCOPE_API_KEY 环境变量未设置")
 
         dashscope.api_key = api_key
 
@@ -32,7 +32,7 @@ class Reranker:
         workspace_id = os.getenv("DASHSCOPE_WORKSPACE_ID")
         if workspace_id:
             dashscope.base_http_api_url = f'https://{workspace_id}.cn-beijing.maas.aliyuncs.com/api/v1'
-            print(f"使用工作空间: {workspace_id}")
+            print(f"信息[Reranker.__init__]：使用工作空间: {workspace_id}")
 
     def get_rerank_model_name(self) -> str:
         """
@@ -102,7 +102,7 @@ class Reranker:
             return result
 
         except Exception as e:
-            print(f"RRF融合失败: {str(e)}")
+            print(f"错误[Reranker._rrf_fusion]：RRF融合失败: {str(e)}")
             # 失败时返回向量检索结果（作为降级策略）
             return vector_documents[:k] if vector_documents else []
 
@@ -138,7 +138,7 @@ class Reranker:
 
             # 如果融合后没有文档，直接返回空列表
             if not fused_documents:
-                print("警告：RRF融合后没有文档")
+                print("警告[Reranker.rerank]：RRF融合后没有文档")
                 return []
 
             # 步骤2：使用 DashScope Rerank 模型进行精排
@@ -168,19 +168,19 @@ class Reranker:
                     return reranked_documents[:k]
 
                 else:
-                    print(f"Rerank API 调用失败: {response.code} - {response.message}")
-                    print("降级到 RRF 融合结果")
+                    print(f"警告[Reranker.rerank]：Rerank API调用失败: {response.code} - {response.message}")
+                    print("警告[Reranker.rerank]：降级到 RRF 融合结果")
                     return fused_documents[:k]
 
             except Exception as rerank_error:
-                print(f"Rerank 模型调用失败: {str(rerank_error)}")
-                print(f"错误类型: {type(rerank_error).__name__}")
+                print(f"警告[Reranker.rerank]：Rerank 模型调用失败: {str(rerank_error)}")
+                print(f"警告[Reranker.rerank]：错误类型: {type(rerank_error).__name__}")
                 # 降级到 RRF 融合结果
                 return fused_documents[:k]
 
         except Exception as e:
-            print(f"重排序失败: {str(e)}")
-            print(f"错误类型: {type(e).__name__}")
+            print(f"错误[Reranker.rerank]：重排序失败: {str(e)}")
+            print(f"警告[Reranker.rerank]：错误类型: {type(e).__name__}")
             # 失败时返回 RRF 融合结果作为降级策略
             try:
                 fused_documents = self._rrf_fusion(
@@ -192,6 +192,6 @@ class Reranker:
                 )
                 return fused_documents
             except Exception as e2:
-                print(f"RRF融合降级也失败: {str(e2)}")
+                print(f"错误[Reranker.rerank]：RRF融合降级也失败: {str(e2)}")
                 # 最终降级：返回向量检索结果
                 return vector_documents[:k] if vector_documents else []
