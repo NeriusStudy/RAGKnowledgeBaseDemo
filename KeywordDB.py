@@ -44,13 +44,13 @@ class KeywordDB:
             if self.documents_file.exists():
                 with open(self.documents_file, 'rb') as f:
                     documents_dict = pickle.load(f)
-                print(f"成功加载 {len(documents_dict)} 条文档")
+                print(f"信息[KeywordDB._load_documents] 成功加载 {len(documents_dict)} 条文档")
                 return documents_dict
             else:
-                print("未找到持久化文档，初始化空数据库")
+                print("信息[KeywordDB._load_documents] 未找到持久化文档，初始化空数据库")
                 return {}
         except Exception as e:
-            print(f"加载文档失败: {str(e)}，初始化空数据库")
+            print(f"错误[KeywordDB._load_documents] 加载文档失败: {str(e)}，初始化空数据库")
             return {}
 
     def _save_documents(self) -> bool:
@@ -62,7 +62,7 @@ class KeywordDB:
                 pickle.dump(self._documents, f, protocol=pickle.HIGHEST_PROTOCOL)
             return True
         except Exception as e:
-            print(f"保存文档失败: {str(e)}")
+            print(f"错误[KeywordDB._save_documents] 保存文档失败: {str(e)}")
             return False
 
     def _build_retriever(self) -> Optional[BM25Retriever]:
@@ -83,7 +83,7 @@ class KeywordDB:
             return retriever
 
         except Exception as e:
-            print(f"构建 BM25Retriever 失败: {str(e)}")
+            print(f"错误[KeywordDB._build_retriever] 构建 BM25Retriever 失败: {str(e)}")
             return None
 
     def add_document(self, document: Document) -> bool:
@@ -97,7 +97,7 @@ class KeywordDB:
         try:
             # 检查文档是否包含 md5
             if 'md5' not in document.metadata:
-                print("错误：文档 metadata 中缺少 md5 字段")
+                print("错误[KeywordDB.add_document]：文档 metadata 中缺少 md5 字段")
                 return False
 
             md5 = document.metadata['md5']
@@ -112,7 +112,7 @@ class KeywordDB:
             return self._save_documents()
 
         except Exception as e:
-            print(f"添加文档失败: {str(e)}")
+            print(f"错误[KeywordDB.add_document] 添加文档失败: {str(e)}")
             return False
 
     def add_documents(self, documents: List[Document]) -> bool:
@@ -125,13 +125,13 @@ class KeywordDB:
         """
         try:
             if not documents:
-                print("警告：文档列表为空")
+                print("警告[KeywordDB.add_documents]：文档列表为空")
                 return True
 
             # 检查所有文档是否都包含 md5
             for doc in documents:
                 if 'md5' not in doc.metadata:
-                    print(f"错误：文档 metadata 中缺少 md5 字段")
+                    print(f"错误[KeywordDB.add_documents]：文档 metadata 中缺少 md5 字段")
                     return False
 
             # 批量添加到内存字典
@@ -146,7 +146,7 @@ class KeywordDB:
             return self._save_documents()
 
         except Exception as e:
-            print(f"批量添加文档失败: {str(e)}")
+            print(f"错误[KeywordDB.add_documents] 批量添加文档失败: {str(e)}")
             return False
 
     def delete_document(self, md5: str) -> bool:
@@ -162,7 +162,7 @@ class KeywordDB:
             if md5 in self._documents:
                 del self._documents[md5]
             else:
-                print(f"警告：文档 md5={md5} 不存在")
+                print(f"警告[KeywordDB.delete_document]：文档 md5={md5} 不存在")
 
             # 重建 BM25Retriever
             self._retriever = self._build_retriever()
@@ -171,7 +171,7 @@ class KeywordDB:
             return self._save_documents()
 
         except Exception as e:
-            print(f"删除文档失败 (md5={md5}): {str(e)}")
+            print(f"错误[KeywordDB.delete_document] 删除文档失败 (md5={md5}): {str(e)}")
             return False
 
     def delete_documents(self, md5_list: List[str]) -> bool:
@@ -184,7 +184,7 @@ class KeywordDB:
         """
         try:
             if not md5_list:
-                print("警告：md5列表为空")
+                print("警告[KeywordDB.delete_documents]：md5列表为空")
                 return True
 
             # 批量删除
@@ -199,7 +199,7 @@ class KeywordDB:
             return self._save_documents()
 
         except Exception as e:
-            print(f"批量删除文档失败: {str(e)}")
+            print(f"错误[KeywordDB.delete_documents] 批量删除文档失败: {str(e)}")
             return False
 
     def search(self, query: str, k: int = config.KEYWORD_SEARCH_DEFAULT_K) -> List[Document]:
@@ -213,7 +213,7 @@ class KeywordDB:
         """
         try:
             if not self._retriever:
-                print("警告：BM25Retriever 未初始化，数据库为空")
+                print("警告[KeywordDB.search]：BM25Retriever 未初始化，数据库为空")
                 return []
 
             # 使用 BM25Retriever 进行检索
@@ -235,7 +235,7 @@ class KeywordDB:
             return results
 
         except Exception as e:
-            print(f"关键词检索失败: {str(e)}")
+            print(f"错误[KeywordDB.search] 关键词检索失败: {str(e)}")
             return []
 
     def delete_me(self):
@@ -248,10 +248,10 @@ class KeywordDB:
             # 删除持久化存储目录
             if self.keyword_db_store_path.exists():
                 shutil.rmtree(self.keyword_db_store_path)
-                print(f"成功删除关键词数据库: {self.keyword_db_store_path}")
+                print(f"成功[KeywordDB.delete_me] 成功删除关键词数据库: {self.keyword_db_store_path}")
             else:
-                print(f"关键词数据库目录不存在: {self.keyword_db_store_path}")
+                print(f"警告[KeywordDB.delete_me]：关键词数据库目录不存在: {self.keyword_db_store_path}")
 
         except Exception as e:
-            print(f"删除关键词数据库失败: {str(e)}")
+            print(f"错误[KeywordDB.delete_me] 删除关键词数据库失败: {str(e)}")
             raise
