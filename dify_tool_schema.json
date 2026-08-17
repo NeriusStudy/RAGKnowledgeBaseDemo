@@ -1,0 +1,92 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "RAG Knowledge Base Search",
+        "description": "RAG 知识库检索工具：在指定知识库中执行混合检索（向量+关键词+重排序），返回格式化的检索结果字符串。支持 vector、keyword、hybrid 三种检索模式。",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://host.docker.internal:8000",
+            "description": "本地 RAG 知识库服务"
+        }
+    ],
+    "paths": {
+        "/dify/rag-search": {
+            "post": {
+                "operationId": "rag_search",
+                "summary": "RAG 知识库检索",
+                "description": "在指定知识库中检索相关文档，返回组装后的文本字符串，包含文档来源和内容。",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "knowledge_base": {
+                                        "type": "string",
+                                        "description": "知识库名称（需与服务端已创建的知识库名称一致）",
+                                        "example": "test"
+                                    },
+                                    "query": {
+                                        "type": "string",
+                                        "description": "检索问题或关键词",
+                                        "example": "如何使用向量检索？"
+                                    },
+                                    "mod": {
+                                        "type": "string",
+                                        "enum": ["vector", "keyword", "hybrid"],
+                                        "default": "hybrid",
+                                        "description": "检索模式：vector(纯向量检索)、keyword(纯关键词检索)、hybrid(混合检索+重排序)"
+                                    },
+                                    "k": {
+                                        "type": "integer",
+                                        "default": 10,
+                                        "description": "返回的文档数量",
+                                        "minimum": 1,
+                                        "maximum": 50
+                                    },
+                                    "vector_weight": {
+                                        "type": "number",
+                                        "default": 0.5,
+                                        "description": "混合检索中向量检索的权重（0.0-1.0）",
+                                        "minimum": 0.0,
+                                        "maximum": 1.0
+                                    },
+                                    "keyword_weight": {
+                                        "type": "number",
+                                        "default": 0.5,
+                                        "description": "混合检索中关键词检索的权重（0.0-1.0）",
+                                        "minimum": 0.0,
+                                        "maximum": 1.0
+                                    }
+                                },
+                                "required": ["knowledge_base", "query"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "检索成功，返回格式化的结果字符串",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "type": "string",
+                                            "description": "格式化后的检索结果字符串，包含文档序号、来源和内容",
+                                            "example": "【1】来源: 示例文档.docx\n向量检索是一种基于语义相似度的文档检索方法..."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

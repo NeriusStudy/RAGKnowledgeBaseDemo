@@ -47,6 +47,9 @@
 # 可选:
 #   DASHSCOPE_WORKSPACE_ID   (阿里云百炼工作空间 ID)
 
+# dify工具配置
+# 需要将dify_tool_schema.json中的url修改为真实url
+
 # VectorDB
 EMBEDDING_MODEL_NAME = "text-embedding-v2"
 VECTOR_SEARCH_DEFAULT_K = 10

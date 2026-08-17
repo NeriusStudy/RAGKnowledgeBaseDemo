@@ -32,6 +32,7 @@ import config
 from KnowledgeBase import KnowledgeBase
 
 from fastapi import FastAPI, HTTPException, UploadFile, File
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from typing import List
@@ -162,6 +163,15 @@ def save_data():
 # ============================================================
 
 app = FastAPI()
+
+# 添加 CORS 中间件，允许 Dify (Docker) 跨域访问
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # 内存中存储所有知识库的数据
 # knowledge_bases: 字典，键为知识库名称，值为字典
@@ -437,8 +447,96 @@ async def search_knowledge_base(name: str, request: SearchRequest):
             })
 
     return {"results": results, "count": len(results)}
+
+
 # ============================================================
-# 第九部分：服务启动入口
+# 第九部分：Dify 工具接口
+# ============================================================
+
+class DifyToolRequest(BaseModel):
+    """Dify 工具调用请求体"""
+    knowledge_base: str
+    query: str
+    mod: str = "hybrid"
+    k: int = 10
+    vector_weight: float = 0.5
+    keyword_weight: float = 0.5
+
+
+def _format_documents_as_string(documents) -> str:
+    """将检索到的 Document 列表组装为一个格式化字符串"""
+    if not documents:
+        return "未检索到相关内容"
+
+    parts = []
+    for i, doc in enumerate(documents, start=1):
+        content = doc.page_content.strip() if hasattr(doc, 'page_content') else str(doc)
+        if not content:
+            continue
+        metadata = doc.metadata if hasattr(doc, 'metadata') else {}
+        source = metadata.get('source', '未知来源')
+        parts.append(f"【{i}】来源: {source}\n{content}")
+
+    if not parts:
+        return "未检索到相关内容"
+
+    return "\n\n".join(parts)
+
+
+@app.post("/dify/rag-search")
+async def dify_rag_search(request: DifyToolRequest):
+    """
+    【Dify 工具接口】RAG 知识库检索
+
+    Dify 调用此接口进行知识库检索，返回组装后的字符串。
+    在 Dify 中配置此 URL 为自定义工具后，可在 Agent 工作流中直接使用。
+
+    Args (通过 Dify 传入):
+        knowledge_base: 知识库名称
+        query:          检索问题
+        mod:            检索模式 (vector/keyword/hybrid)，默认 hybrid
+        k:              返回文档数量，默认 10
+        vector_weight:  向量检索权重，默认 0.5
+        keyword_weight: 关键词检索权重，默认 0.5
+
+    Returns:
+        { "result": "格式化后的检索结果字符串" }
+    """
+    kb_name = request.knowledge_base.strip()
+    query = request.query.strip()
+
+    if not kb_name:
+        return {"result": "错误: 知识库名称不能为空"}
+    if not query:
+        return {"result": "错误: 检索问题不能为空"}
+
+    if kb_name not in knowledge_bases:
+        return {"result": f"错误: 知识库 '{kb_name}' 不存在"}
+
+    kb_data = knowledge_bases[kb_name]
+
+    if not kb_data["instance"]:
+        return {"result": f"错误: 知识库 '{kb_name}' 未初始化"}
+
+    try:
+        documents = kb_data["instance"].search(
+            query=query,
+            mod=request.mod,
+            k=request.k,
+            vector_weight=request.vector_weight,
+            keyword_weight=request.keyword_weight,
+        )
+        result_string = _format_documents_as_string(documents)
+        print(f"信息[Dify.rag-search] 知识库='{kb_name}', query='{query[:50]}...', 找到 {len(documents)} 条文档")
+        return {"result": result_string}
+
+    except Exception as e:
+        print(f"错误[Dify.rag-search] 检索失败: {e}")
+        return {"result": f"检索失败: {str(e)}"}
+
+
+# ============================================================
+# 第十部分：服务启动入口
 # ============================================================
 
 if __name__ == "__main__":
