@@ -1,6 +1,4 @@
 """
-实现人：
-
 文件存储类
 用于存储文件内容
 利用deduplicator实现文件去重，对文件名进行去重，避免重复存储相同文件
@@ -75,7 +73,7 @@ class FileStore:
             with open(self.file_document_map_store_path, 'r', encoding='utf-8') as f:
                 self.file_document_map = json.load(f)
         except Exception as e:
-            print(f"[FileStore] 加载文件-文档映射失败: {e}")
+            print(f"错误[FileStore._load_file_document_map] 加载文件-文档映射失败: {e}")
             self.file_document_map = {}
 
     def _save_file_document_map(self):
@@ -118,7 +116,7 @@ class FileStore:
             return doc
 
         except Exception as e:
-            print(f"[FileStore] 文件解析失败 {file_name}: {e}")
+            print(f"错误[FileStore._file_to_document] 文件解析失败 {file_name}: {e}")
             raise
 
     def get_splitter_chunk_size(self) -> int:
@@ -170,7 +168,7 @@ class FileStore:
 
         # 1. 检查文件是否已存在（去重）
         if file_name in self.file_document_map:
-            print(f"[FileStore] 文件已存在，跳过: {file_name}")
+            print(f"警告[FileStore.save_file] 文件已存在，跳过: {file_name}")
             return []
 
         # 2. 确保文件存储目录存在
@@ -212,7 +210,7 @@ class FileStore:
                             "metadata": split_doc.metadata
                         }, f, ensure_ascii=False, indent=2)
                 except Exception as e:
-                    print(f"[FileStore] 文档保存失败 {doc_md5}: {e}")
+                    print(f"错误[FileStore.save_file] 文档保存失败 {doc_md5}: {e}")
 
         # 8. 保存文件-文档映射关系
         self.file_document_map[file_name] = {
@@ -227,7 +225,7 @@ class FileStore:
         # 10. 保存文件名到去重器（用于文件名去重）
         self.deduplicator.save_str(file_name)
 
-        print(f"[FileStore] 文件保存成功: {file_name}, 切分为 {len(split_docs)} 个文档")
+        print(f"成功[FileStore.save_file] 文件保存成功: {file_name}, 切分为 {len(split_docs)} 个文档")
 
         return split_docs
 
@@ -243,7 +241,7 @@ class FileStore:
         """
         # 1. 检查文件是否存在
         if file_name not in self.file_document_map:
-            print(f"[FileStore] 文件不存在: {file_name}")
+            print(f"警告[FileStore.delete_file] 文件不存在: {file_name}")
             return []
 
         # 2. 获取文档 MD5 列表
@@ -256,7 +254,7 @@ class FileStore:
             try:
                 os.remove(file_path)
             except Exception as e:
-                print(f"[FileStore] 删除文件失败: {e}")
+                print(f"错误[FileStore.delete_file] 删除文件失败: {e}")
 
         # 4. 删除所有文档 JSON 文件
         for doc_md5 in doc_md5_list:
@@ -265,7 +263,7 @@ class FileStore:
                 try:
                     os.remove(doc_file_path)
                 except Exception as e:
-                    print(f"[FileStore] 删除文档文件失败 {doc_md5}: {e}")
+                    print(f"错误[FileStore.delete_file] 删除文档文件失败 {doc_md5}: {e}")
 
         # 5. 从映射中删除
         del self.file_document_map[file_name]
@@ -276,7 +274,7 @@ class FileStore:
         # 7. 从去重器中删除文件名
         self.deduplicator.delete_str(file_name)
 
-        print(f"[FileStore] 文件删除成功: {file_name}, 返回 {len(doc_md5_list)} 个文档 MD5")
+        print(f"成功[FileStore.delete_file] 文件删除成功: {file_name}, 返回 {len(doc_md5_list)} 个文档 MD5")
 
         return doc_md5_list
 
@@ -375,7 +373,7 @@ class FileStore:
                         )
                         documents.append(doc)
                 except Exception as e:
-                    print(f"[FileStore] 读取文档失败: {md5}.json, 错误: {e}")
+                    print(f"错误[FileStore.get_documents_by_file] 读取文档失败: {md5}.json, 错误: {e}")
 
         return documents
 
