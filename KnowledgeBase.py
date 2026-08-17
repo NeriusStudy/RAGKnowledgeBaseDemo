@@ -49,23 +49,23 @@ class KnowledgeBase:
 
         self.file_store_path = file_store_path
         if self.file_store_path is None:
-            self.file_store_path = self.knowledgebase_store_path + config.FILE_STORE_PATH
+            self.file_store_path = os.path.join(self.knowledgebase_store_path, config.FILE_STORE_PATH)
 
         self.document_store_path = document_store_path
         if self.document_store_path is None:
-            self.document_store_path = self.knowledgebase_store_path + config.DOCUMENT_STORE_PATH
+            self.document_store_path = os.path.join(self.knowledgebase_store_path, config.DOCUMENT_STORE_PATH)
 
         self.md5_store_path = md5_store_path
         if self.md5_store_path is None:
-            self.md5_store_path = self.knowledgebase_store_path + config.MD5_STORE_PATH
+            self.md5_store_path = os.path.join(self.knowledgebase_store_path, config.MD5_STORE_PATH)
 
         self.file_document_map_store_path = file_document_map_store_path
         if self.file_document_map_store_path is None:
-            self.file_document_map_store_path = self.knowledgebase_store_path + config.FILE_DOCUMENT_MAP_STORE_PATH
+            self.file_document_map_store_path = os.path.join(self.knowledgebase_store_path, config.FILE_DOCUMENT_MAP_STORE_PATH)
 
         self.RAG_store_path = RAG_store_path
         if self.RAG_store_path is None:
-            self.RAG_store_path = self.knowledgebase_store_path + config.RAG_STORE_PATH
+            self.RAG_store_path = os.path.join(self.knowledgebase_store_path, config.RAG_STORE_PATH)
 
         self.embedding_model_name = embedding_model_name
         self.rerank_model_name = rerank_model_name
@@ -221,36 +221,32 @@ class KnowledgeBase:
     def delete_file(self, file_name: str) -> bool:
         """
         删除文件及其关联的所有文档
-        流程：获取文档 MD5 列表 -> RAGService 删除文档 -> FileStore 删除文件
+        流程：FileStore 删除文件 -> 获取文档 MD5 列表 -> RAGService 批量删除文档
         Args:
             file_name: 文件名称
         Returns:
             bool: 是否删除成功
         """
         try:
-            # 1. 获取文件对应的文档 MD5 列表
-            md5_list = self.file_store.get_file_md5s(file_name)
+            # 1. 从 FileStore 删除文件，返回被删除文档的 MD5 列表
+            md5_list = self.file_store.delete_file(file_name)
 
             if not md5_list:
                 print(f"错误[KnowledgeBase.delete_file] 文件不存在或无关联文档: {file_name}")
                 return False
 
-            # 2. 从 RAGService 删除所有文档
-            for md5 in md5_list:
-                self.rag_service.delete_document(md5)
-
-            # 3. 从 FileStore 删除文件
-            success = self.file_store.delete_file(file_name)
+            # 2. 从 RAGService 批量删除所有文档
+            success = self.rag_service.delete_documents(md5_list)
 
             if success:
                 print(f"信息[KnowledgeBase.delete_file] 文件删除成功: {file_name}, 删除了 {len(md5_list)} 个文档")
+                return True
             else:
-                print(f"错误[KnowledgeBase.delete_file] 文件删除失败: {file_name}")
-
-            return success
+                print(f"错误[KnowledgeBase.delete_file] RAG 文档删除失败: {file_name}")
+                return False
 
         except Exception as e:
-            print(f"错误[KnowledegeBase.delete_file] 文件删除失败: {e}")
+            print(f"错误[KnowledgeBase.delete_file] 文件删除失败: {e}")
             return False
 
     def search(self, query: str, mod: str = "hybrid", k: int = config.RAG_SEARCH_DEFAULT_K,
@@ -291,9 +287,15 @@ class KnowledgeBase:
         删除知识库的所有持久化存储
         """
         import shutil
-        import os
 
         try:
+            # 先删除 FileStore 和 RAGService 的内部数据
+            try:
+                self.rag_service.delete_me()
+            except Exception as e:
+                print(f"错误[KnowledgeBase.delete_me] 删除 RAG 服务失败: {e}")
+
+            # 删除知识库根目录
             if os.path.exists(self.knowledgebase_store_path):
                 shutil.rmtree(self.knowledgebase_store_path)
                 print(f"信息[KnowledgeBase.delete_me] 知识库已删除: {self.name}")
@@ -301,3 +303,8 @@ class KnowledgeBase:
                 print(f"错误[KnowledgeBase.delete_me] 知识库路径不存在: {self.knowledgebase_store_path}")
         except Exception as e:
             print(f"错误[KnowledgeBase.delete_me] 删除知识库失败: {e}")
+
+        # 清理对象引用，防止后续调用出错
+        self.file_store = None
+        self.rag_service = None
+        print("信息[KnowledgeBase.delete_me] KnowledgeBase 对象引用已清理")
