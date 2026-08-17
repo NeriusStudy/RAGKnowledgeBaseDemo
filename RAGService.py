@@ -6,6 +6,7 @@ RAG 服务（RAGService）
 整合 VectorDB、KeywordDB、Reranker 三大组件，
 提供文档管理、向量检索、关键词检索、混合检索（RRF + Rerank）等能力。
 """
+import os
 import config
 from langchain_core.documents import Document
 from VectorDB import VectorDB
@@ -27,9 +28,9 @@ class RAGService:
         self.embedding_model_name = embedding_model_name
         self.rerank_model_name = rerank_model_name
         # 拼接向量数据库存储位置
-        self.vector_db_path = self.RAG_store_path + config.VECTOR_DB_PATH
+        self.vector_db_path = os.path.join(self.RAG_store_path, config.VECTOR_DB_PATH)
         # 拼接关键词库存储位置
-        self.keyword_db_path = self.RAG_store_path + config.KEYWORD_DB_PATH
+        self.keyword_db_path = os.path.join(self.RAG_store_path, config.KEYWORD_DB_PATH)
         # 初始化向量库
         self.vector_db = VectorDB(
             vector_db_store_path=self.vector_db_path,
@@ -303,3 +304,9 @@ class RAGService:
             print("信息[RAGService.delete_me]：关键词数据库已删除")
         except Exception as e:
             print(f"错误[RAGService.delete_me]：删除关键词数据库失败: {e}")
+
+        # 清理对象引用，防止后续调用出错
+        self.vector_db = None
+        self.keyword_db = None
+        self.reranker = None
+        print("信息[RAGService.delete_me]：RAGService 对象引用已清理")
