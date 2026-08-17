@@ -30,4 +30,4 @@ python-dotenv==1.0.0
 # pytest-cov==6.0.0
 
 # 文本分割器
-langchain-text-splitters
+langchain-text-splitters==1.1.2

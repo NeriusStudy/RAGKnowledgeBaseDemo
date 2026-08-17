@@ -73,13 +73,13 @@ class RAGService:
             # 添加到向量数据库
             vector_success = self.vector_db.add_document(document)
             if not vector_success:
-                print(f"警告：文档添加到向量数据库失败")
+                print(f"警告[RAGService.add_document]：文档添加到向量数据库失败")
                 return False
 
             # 添加到关键词数据库
             keyword_success = self.keyword_db.add_document(document)
             if not keyword_success:
-                print(f"警告：文档添加到关键词数据库失败")
+                print(f"警告[RAGService.add_document]：文档添加到关键词数据库失败")
                 # 尝试从向量数据库中删除已添加的文档以保持一致性
                 if 'md5' in document.metadata:
                     self.vector_db.delete_document(document.metadata['md5'])
@@ -87,7 +87,7 @@ class RAGService:
 
             return True
         except Exception as e:
-            print(f"添加文档失败: {e}")
+            print(f"错误[RAGService.add_document]：文档添加文档失败: {e}")
             return False
 
     def add_documents(self, documents: list[Document]) -> bool:
@@ -103,13 +103,13 @@ class RAGService:
             # 批量添加到向量数据库
             vector_success = self.vector_db.add_documents(documents)
             if not vector_success:
-                print(f"警告：文档批量添加到向量数据库失败")
+                print(f"警告[RAGService.add_documents]：文档批量添加到向量数据库失败")
                 return False
 
             # 批量添加到关键词数据库
             keyword_success = self.keyword_db.add_documents(documents)
             if not keyword_success:
-                print(f"警告：文档批量添加到关键词数据库失败")
+                print(f"警告[RAGService.add_documents]：文档批量添加到关键词数据库失败")
                 # 尝试从向量数据库中删除已添加的文档以保持一致性
                 md5_list = [doc.metadata['md5'] for doc in documents if 'md5' in doc.metadata]
                 if md5_list:
@@ -118,7 +118,7 @@ class RAGService:
 
             return True
         except Exception as e:
-            print(f"批量添加文档失败: {e}")
+            print(f"错误[RAGService.add_documents]：文档批量添加文档失败: {e}")
             return False
 
     def delete_document(self, md5: str) -> bool:
@@ -141,12 +141,12 @@ class RAGService:
                 return True
             else:
                 if not vector_success:
-                    print(f"警告：从向量数据库删除文档 {md5} 失败")
+                    print(f"警告[RAGService.delete_document]：从向量数据库删除文档 {md5} 失败")
                 if not keyword_success:
-                    print(f"警告：从关键词数据库删除文档 {md5} 失败")
+                    print(f"警告[RAGService.delete_document]：从关键词数据库删除文档 {md5} 失败")
                 return False
         except Exception as e:
-            print(f"删除文档失败: {e}")
+            print(f"错误[RAGService.delete_document]：文档批量删除文档失败: {e}")
             return False
 
     def delete_documents(self, md5_list: list[str]) -> bool:
@@ -169,12 +169,12 @@ class RAGService:
                 return True
             else:
                 if not vector_success:
-                    print(f"警告：从向量数据库批量删除文档失败")
+                    print(f"警告[RAGService.delete_documents]：从向量数据库批量删除文档失败")
                 if not keyword_success:
-                    print(f"警告：从关键词数据库批量删除文档失败")
+                    print(f"警告[RAGService.delete_documents]：从关键词数据库批量删除文档失败")
                 return False
         except Exception as e:
-            print(f"批量删除文档失败: {e}")
+            print(f"错误[RAGService.delete_documents]：文档批量删除文档失败: {e}")
             return False
 
     def _vector_search(self, query:str, k:int = config.VECTOR_SEARCH_DEFAULT_K) -> list[Document]:
@@ -204,7 +204,7 @@ class RAGService:
         try:
             return self.keyword_db.search(query=query, k=k)
         except Exception as e:
-            print(f"关键词检索失败: {e}")
+            print(f"错误[RAGService._keyword_search]：关键词检索失败: {e}")
             return []
 
     def _hybrid_search(self, query:str, k:int = config.HYBRID_SEARCH_DEFAULT_K,
@@ -244,7 +244,7 @@ class RAGService:
 
             return reranked_results
         except Exception as e:
-            print(f"混合检索失败: {e}")
+            print(f"错误[RAGService._hybrid_search]：混合检索失败: {e}")
             # 降级策略：如果混合检索失败，返回向量检索结果
             return self._vector_search(query=query, k=k)
 
@@ -275,7 +275,7 @@ class RAGService:
                     keyword_weight=keyword_weight
                 )
             else:
-                print(f"警告：不支持的检索模式 '{mod}'，使用默认的 hybrid 模式")
+                print(f"警告[RAGService.search]：不支持的检索模式 '{mod}'，使用默认的 hybrid 模式")
                 return self._hybrid_search(
                     query=query,
                     k=k,
@@ -283,7 +283,7 @@ class RAGService:
                     keyword_weight=keyword_weight
                 )
         except Exception as e:
-            print(f"检索失败: {e}")
+            print(f"错误[RAGService.search]：检索失败: {e}")
             return []
 
     def delete_me(self):
@@ -293,13 +293,13 @@ class RAGService:
         try:
             # 删除向量数据库
             self.vector_db.delete_me()
-            print("✓ 向量数据库已删除")
+            print("信息[RAGService.delete_me]：向量数据库已删除")
         except Exception as e:
-            print(f"删除向量数据库失败: {e}")
+            print(f"错误[RAGService.delete_me]：删除向量数据库失败: {e}")
 
         try:
             # 删除关键词数据库
             self.keyword_db.delete_me()
-            print("✓ 关键词数据库已删除")
+            print("信息[RAGService.delete_me]：关键词数据库已删除")
         except Exception as e:
-            print(f"删除关键词数据库失败: {e}")
+            print(f"错误[RAGService.delete_me]：删除关键词数据库失败: {e}")
