@@ -74,7 +74,7 @@ class VectorDB:
         try:
             # 检查文档是否包含 md5
             if 'md5' not in document.metadata:
-                print("错误：文档 metadata 中缺少 md5 字段")
+                print("错误[VectorDB.add_document]：文档 metadata 中缺少 md5 字段")
                 return False
 
             # 使用 md5 作为 Chroma 的 ID
@@ -89,7 +89,7 @@ class VectorDB:
             return True
 
         except Exception as e:
-            print(f"添加文档失败: {str(e)}")
+            print(f"错误[VectorDB.add_document]：添加文档失败: {str(e)}")
             return False
 
     def add_documents(self, documents: list[Document]) -> bool:
@@ -103,14 +103,14 @@ class VectorDB:
         """
         try:
             if not documents:
-                print("警告：文档列表为空")
+                print("警告[VectorDB.add_documents]：文档列表为空")
                 return True
 
             # 检查所有文档是否都包含 md5
             md5_list = []
             for doc in documents:
                 if 'md5' not in doc.metadata:
-                    print(f"错误：文档 metadata 中缺少 md5 字段")
+                    print(f"错误[VectorDB.add_documents]：文档 metadata 中缺少 md5 字段")
                     return False
                 md5_list.append(doc.metadata['md5'])
 
@@ -123,7 +123,7 @@ class VectorDB:
             return True
 
         except Exception as e:
-            print(f"批量添加文档失败: {str(e)}")
+            print(f"错误[VectorDB.add_documents]：批量添加文档失败: {str(e)}")
             return False
 
     def delete_document(self, md5: str) -> bool:
@@ -140,7 +140,7 @@ class VectorDB:
             return True
 
         except Exception as e:
-            print(f"删除文档失败 (md5={md5}): {str(e)}")
+            print(f"错误[VectorDB.delete_document]：删除文档失败 (md5={md5}): {str(e)}")
             return False
 
     def delete_documents(self, md5_list: list[str]) -> bool:
@@ -153,7 +153,7 @@ class VectorDB:
         """
         try:
             if not md5_list:
-                print("警告：md5列表为空")
+                print("警告[VectorDB.delete_documents]：md5列表为空")
                 return True
 
             # 批量删除文档
@@ -161,7 +161,7 @@ class VectorDB:
             return True
 
         except Exception as e:
-            print(f"批量删除文档失败: {str(e)}")
+            print(f"错误[VectorDB.delete_documents]：批量删除文档失败: {str(e)}")
             return False
 
     def search(self, query: str, k: int = config.VECTOR_SEARCH_DEFAULT_K) -> list[Document]:
@@ -182,7 +182,7 @@ class VectorDB:
             return results
 
         except Exception as e:
-            print(f"向量检索失败: {str(e)}")
+            print(f"错误[VectorDB.search]：向量检索失败: {str(e)}")
             return []
 
     def delete_me(self):
@@ -222,21 +222,21 @@ class VectorDB:
                 for i in range(max_retries):
                     try:
                         shutil.rmtree(db_path)
-                        print(f"成功删除向量数据库: {self.vector_db_store_path}")
+                        print(f"成功[VectorDB.delete_me]：成功删除向量数据库: {self.vector_db_store_path}")
                         break
                     except (PermissionError, OSError) as e:
                         if i < max_retries - 1:
-                            print(f"删除失败，1秒后重试... ({i+1}/{max_retries})")
+                            print(f"警告[VectorDB.delete_me]：删除失败，1秒后重试... ({i+1}/{max_retries})")
                             time.sleep(1)
                             gc.collect()
                         else:
-                            print(f"删除向量数据库失败（文件被占用）: {self.vector_db_store_path}")
-                            print("提示：请手动删除该目录，或稍后删除")
+                            print(f"错误[VectorDB.delete_me]：删除向量数据库失败（文件被占用）: {self.vector_db_store_path}")
+                            print("警告[VectorDB.delete_me]：请手动删除该目录，或稍后删除")
                             # 不抛出异常，允许程序继续执行
             else:
-                print(f"向量数据库目录不存在: {self.vector_db_store_path}")
+                print(f"警告[VectorDB.delete_me]：向量数据库目录不存在: {self.vector_db_store_path}")
 
         except Exception as e:
-            print(f"删除向量数据库时出错: {str(e)}")
-            print("提示：可以忽略此错误，稍后手动删除测试目录")
+            print(f"错误[VectorDB.delete_me]：删除向量数据库时出错: {str(e)}")
+            print("警告[VectorDB.delete_me]：可以忽略此错误，稍后手动删除测试目录")
             # 不抛出异常，允许测试继续
