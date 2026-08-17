@@ -20,7 +20,7 @@ class KnowledgeBase:
                  rerank_model_name: str = config.RERANK_MODEL_NAME,
                  splitter_chunk_size: int = config.SPLITTER_CHUNK_SIZE,
                  splitter_chunk_overlap: int = config.SPLITTER_CHUNK_OVERLAP,
-                 splitter_separaters: List[str] = config.SEPLITTER_SEPARATERS,
+                 splitter_separaters: List[str] = config.SPLITTER_SEPARATERS,
                  splitter_length_function=config.SPLITTER_LENGTH_FUNCTION,
                  ):
         """

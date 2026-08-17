@@ -340,13 +340,31 @@ async def upload_file(name: str, file: UploadFile = File(...)):
     if not kb_data["instance"]:
         raise HTTPException(status_code=500, detail="知识库实例未初始化，无法添加文件")
 
-    # 仅通过 KnowledgeBase.add_file() 添加文件
-    success = kb_data["instance"].add_file(file)
-    if not success:
-        raise HTTPException(status_code=500, detail="文件添加失败")
+    # 将上传的文件保存到临时目录，KnowledgeBase.add_file 需要磁盘文件路径
+    import tempfile
+    file_name = file.filename or "untitled"
+    try:
+        # 读取上传文件的内容
+        file_content = await file.read()
+
+        # 创建临时目录，将文件写入磁盘
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp_file_path = os.path.join(tmp_dir, file_name)
+            with open(tmp_file_path, "wb") as f:
+                f.write(file_content)
+
+            # 调用 KnowledgeBase.add_file，传入临时文件路径
+            success = kb_data["instance"].add_file(tmp_file_path, file_name)
+
+        if not success:
+            raise HTTPException(status_code=500, detail="文件添加失败")
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"文件添加失败: {str(e)}")
 
     # 添加成功后，同步更新内存文件列表和持久化 JSON 文件
-    file_name = file.filename
     if file_name and file_name not in kb_data["files"]:
         kb_data["files"].append(file_name)
     save_data()
