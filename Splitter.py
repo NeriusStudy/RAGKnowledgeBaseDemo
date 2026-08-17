@@ -17,7 +17,7 @@ class Splitter:
         self,
         chunk_size: int = config.SPLITTER_CHUNK_SIZE,
         chunk_overlap: int = config.SPLITTER_CHUNK_OVERLAP,
-        separators: Optional[List[str]] = config.SEPLITTER_SEPARATERS,
+        separators: Optional[List[str]] = config.SPLITTER_SEPARATERS,
         length_function = config.SPLITTER_LENGTH_FUNCTION,
     ):
         """
@@ -81,6 +81,9 @@ class Splitter:
         Returns:
             切分后的文本块列表（List[str]）
         """
+        if not text:
+            print("split_text: text is empty")
+            return []
         return self._splitter.split_text(text)
 
     def split_document(self, document: Document) -> List[Document]:
@@ -92,6 +95,10 @@ class Splitter:
         Returns:
             切分后的 Document 块列表，每个块保留原始 Document 的 metadata，并添加md5
         """
+        if not document.page_content:
+            print("split_document: document.page_content is empty")
+            return []
+
         # 使用 LangChain 的切分器切分文档
         split_docs = self._splitter.split_documents([document])
 
@@ -111,6 +118,10 @@ class Splitter:
         Returns:
             切分后的 Document 块列表，每个块保留对应原始 Document 的 metadata
         """
+        if not documents:
+            print("split_documents: documents is empty")
+            return []
+
         all_split_docs = []
 
         for document in documents:

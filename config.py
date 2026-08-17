@@ -3,11 +3,12 @@
 # 依赖：后续安装的依赖请写在这里，统一用pip安装
 # LangChain核心生态:
 # pip install langchain langchain-core langchain-community
+# Web框架依赖
+# pip install fastapi uvicorn python-multipart
 # Chroma数据库:
 # pip install langchain-chroma
 # dashscope:
 # pip install dashscope
-
 
 # 环境变量
 # DASHSCOPE_API_KEY
@@ -34,7 +35,7 @@ KEYWORD_DB_PATH = "keyword_db"
 # Splitter
 SPLITTER_CHUNK_SIZE = 500
 SPLITTER_CHUNK_OVERLAP = 50
-SEPLITTER_SEPARATERS = ["\n\n", "\n", "。", "！", "？", "；", "，", "、", " ", "", ".", ",", "!", "?"]
+SPLITTER_SEPARATERS = ["\n\n", "\n", "。", "！", "？", "；", "，", "、", " ", "", ".", ",", "!", "?"]
 SPLITTER_LENGTH_FUNCTION = len
 
 # KnowledgeBase
@@ -44,3 +45,7 @@ DOCUMENT_STORE_PATH = "file_store/documents/"
 MD5_STORE_PATH = "file_store/md5.txt"
 FILE_DOCUMENT_MAP_STORE_PATH = "file_store/file_document_map.txt"
 RAG_STORE_PATH = "RAG_store"
+
+# main
+KNOWLEDGE_BASE_STORE_PATH = "data/knowledge"
+KNOWLEDGE_BASE_STORE_FILE = "knowledge_bases.json"
