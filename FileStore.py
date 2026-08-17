@@ -89,9 +89,22 @@ class FileStore:
         except Exception as e:
             print(f"[FileStore] 保存文件-文档映射失败: {e}")
 
+    SUPPORTED_TEXT_EXTENSIONS = {
+        '.txt', '.md', '.json', '.csv', '.py', '.js', '.ts', '.tsx', '.jsx',
+        '.html', '.css', '.log', '.xml', '.yaml', '.yml', '.ini', '.cfg',
+        '.rst', '.vue', '.sql', '.sh', '.bat', '.c', '.cpp', '.h', '.hpp',
+        '.java', '.go', '.rs', '.php', '.rb', '.swift', '.kt', '.scala',
+        '.lua', '.pl', '.r', '.m', '.mm', '.cs', '.tex', '.org',
+    }
+
     def _file_to_document(self, file_path: str, file_name: str) -> Document:
         """
-        解析文件成为Document
+        解析文件成为 Document
+        支持格式:
+          - 文本文件 (txt/md/json/csv 等): 自动检测编码 (utf-8/gbk/gb2312/big5 等)
+          - .docx: 使用 python-docx 提取段落文本
+          - .doc:  使用 olefile 提取 Word 二进制文档文本
+          - .pdf:  使用 pypdf 提取页面文本
         Args:
             file_path: 文件路径
             file_name: 文件名称
@@ -99,25 +112,183 @@ class FileStore:
             Document 对象
         """
         try:
-            # 读取文件内容（支持 TXT, JSON, CSV, MD 等文本文件）
-            with open(file_path, 'r', encoding='utf-8') as f:
-                content = f.read()
+            file_ext = os.path.splitext(file_name)[1].lower()
+            content = None
 
-            # 创建 Document
+            # 1. 文本文件：多种编码回退
+            if file_ext in self.SUPPORTED_TEXT_EXTENSIONS or not file_ext:
+                content = self._read_text_with_fallback(file_path)
+
+            # 2. DOCX 文件 (Office Open XML)
+            if content is None and file_ext == '.docx':
+                content = self._read_docx(file_path)
+
+            # 3. DOC 文件 (旧版 Word 二进制格式)
+            if content is None and file_ext == '.doc':
+                content = self._read_doc(file_path)
+
+            # 4. PDF 文件
+            if content is None and file_ext == '.pdf':
+                content = self._read_pdf(file_path)
+
+            # 5. 未知类型：尝试作为文本读取
+            if content is None:
+                content = self._read_text_with_fallback(file_path)
+
+            if not content or not content.strip():
+                raise ValueError(f"文件内容为空或无法解析: {file_name}")
+
             doc = Document(
                 page_content=content,
                 metadata={
                     "source": file_name,
                     "file_path": file_path,
-                    "file_type": os.path.splitext(file_name)[1]
+                    "file_type": file_ext,
                 }
             )
-
             return doc
 
         except Exception as e:
             print(f"错误[FileStore._file_to_document] 文件解析失败 {file_name}: {e}")
             raise
+
+    @staticmethod
+    def _read_text_with_fallback(file_path: str) -> str:
+        """尝试多种常见编码读取文本文件"""
+        encodings = ['utf-8', 'utf-8-sig', 'gbk', 'gb2312', 'gb18030', 'big5', 'latin-1']
+        for encoding in encodings:
+            try:
+                with open(file_path, 'r', encoding=encoding) as f:
+                    content = f.read()
+                if content.strip():
+                    print(f"信息[FileStore._read_text_with_fallback] 使用 {encoding} 编码读取成功: {os.path.basename(file_path)}")
+                    return content
+            except (UnicodeDecodeError, UnicodeError):
+                continue
+            except Exception:
+                continue
+        raise ValueError("无法识别文件编码，可能是二进制文件或编码不支持")
+
+    @staticmethod
+    def _read_docx(file_path: str) -> str:
+        """解析 .docx 文件，提取所有段落文本"""
+        try:
+            from docx import Document as DocxDocument
+        except ImportError:
+            raise ValueError("不支持 .docx 文件，需安装 python-docx: pip install python-docx")
+
+        try:
+            doc = DocxDocument(file_path)
+            paragraphs = [p.text for p in doc.paragraphs if p.text.strip()]
+            content = '\n'.join(paragraphs)
+            if not content.strip():
+                raise ValueError("文件内容为空")
+            print(f"信息[FileStore._read_docx] DOCX 文件解析成功: {os.path.basename(file_path)}")
+            return content
+        except ImportError:
+            raise
+        except Exception as e:
+            raise ValueError(f"解析 .docx 文件失败: {e}")
+
+    @staticmethod
+    def _read_doc(file_path: str) -> str:
+        """解析旧版 .doc 文件（OLE2 二进制格式），提取文本"""
+        import re
+
+        try:
+            import olefile
+        except ImportError:
+            raise ValueError("不支持 .doc 文件，需安装 olefile: pip install olefile")
+
+        try:
+            ole = olefile.OleFileIO(file_path)
+
+            extracted_texts = []
+
+            # 遍历 OLE 流，提取 Word 文本
+            for stream_entry in ole.listdir():
+                try:
+                    stream_path = '/'.join(stream_entry)
+                    stream = ole.openstream(stream_path)
+                    data = stream.read()
+
+                    # Word .doc 文件文本通常以 UTF-16LE 编码
+                    # 尝试 UTF-16LE 解码
+                    try:
+                        text = data.decode('utf-16-le', errors='ignore')
+                        # 清理控制字符，保留可读文本
+                        cleaned = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f]', ' ', text)
+                        cleaned = re.sub(r' +', ' ', cleaned)
+                        cleaned = cleaned.strip()
+                        if len(cleaned) > 10:
+                            extracted_texts.append(cleaned)
+                    except Exception:
+                        pass
+
+                    # 备选：尝试 UTF-8 / GBK 解码
+                    for enc in ['utf-8', 'gbk', 'gb18030']:
+                        try:
+                            text = data.decode(enc, errors='ignore')
+                            # 过滤出包含中文字符或可读英文的部分
+                            if re.search(r'[\u4e00-\u9fff]', text) or re.search(r'[a-zA-Z]{4,}', text):
+                                cleaned = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f]', ' ', text)
+                                cleaned = re.sub(r' +', ' ', cleaned)
+                                cleaned = cleaned.strip()
+                                if len(cleaned) > 10:
+                                    extracted_texts.append(cleaned)
+                                    break
+                        except Exception:
+                            continue
+
+                except Exception:
+                    continue
+
+            ole.close()
+
+            if extracted_texts:
+                # 去重并合并
+                seen = set()
+                unique_texts = []
+                for t in extracted_texts:
+                    if t not in seen:
+                        seen.add(t)
+                        unique_texts.append(t)
+                content = '\n\n'.join(unique_texts)
+                print(f"信息[FileStore._read_doc] DOC 文件解析成功: {os.path.basename(file_path)}, 提取 {len(unique_texts)} 段文本")
+                return content
+
+            raise ValueError("无法从 .doc 文件中提取有效文本，可能文件已损坏或为空")
+        except ImportError:
+            raise
+        except Exception as e:
+            if 'olefile' in str(e):
+                raise
+            raise ValueError(f"解析 .doc 文件失败: {e}")
+
+    @staticmethod
+    def _read_pdf(file_path: str) -> str:
+        """解析 PDF 文件，提取所有页面文本"""
+        try:
+            from pypdf import PdfReader
+        except ImportError:
+            raise ValueError("不支持 .pdf 文件，需安装 pypdf: pip install pypdf")
+
+        try:
+            reader = PdfReader(file_path)
+            pages = []
+            for page in reader.pages:
+                text = page.extract_text()
+                if text and text.strip():
+                    pages.append(text)
+            content = '\n'.join(pages)
+            if not content.strip():
+                raise ValueError("PDF 文件内容为空或无法提取文本")
+            print(f"信息[FileStore._read_pdf] PDF 文件解析成功: {os.path.basename(file_path)}")
+            return content
+        except ImportError:
+            raise
+        except Exception as e:
+            raise ValueError(f"解析 PDF 文件失败: {e}")
 
     def get_splitter_chunk_size(self) -> int:
         """

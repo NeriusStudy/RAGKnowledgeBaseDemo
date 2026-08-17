@@ -9,6 +9,14 @@
 # pip install langchain-chroma
 # dashscope:
 # pip install dashscope
+# 解析doc:
+# pip install olefile
+# 解析docx:
+# pip install python-docx
+# 解析pdf:
+# pip install pypdf
+# rank bm25:
+# pip install rank_bm25
 
 # 环境变量
 # DASHSCOPE_API_KEY

@@ -75,12 +75,12 @@ def create_kb_instance(name):
     try:
         instance = KnowledgeBase(
             name=name,
-            knowledgebase_store_path="",  # 使用默认路径
-            file_store_path="",  # 使用默认路径
-            document_store_path="",  # 使用默认路径
-            md5_store_path="",  # 使用默认路径
-            file_document_map_store_path="",  # 使用默认路径
-            RAG_store_path="",  # 使用默认路径
+            knowledgebase_store_path=None,  # 使用默认路径
+            file_store_path=None,  # 使用默认路径
+            document_store_path=None,  # 使用默认路径
+            md5_store_path=None,  # 使用默认路径
+            file_document_map_store_path=None,  # 使用默认路径
+            RAG_store_path=None,  # 使用默认路径
         )
         return instance
     except Exception:

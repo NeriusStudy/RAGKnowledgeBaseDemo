@@ -89,6 +89,7 @@ tmp/
 
 # Knowledge base data (generated files, not to be committed)
 data/knowledge/
+data/
 
 # RAG-Multi-Corpus dataset (large dataset, not to be committed)
 RAG-Multi-Corpus/
